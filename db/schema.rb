@@ -80,8 +80,8 @@ ActiveRecord::Schema.define(version: 2021_07_24_065923) do
 
   create_table "order_details", force: :cascade do |t|
     t.integer "order_id"
-    t.string "item_name"
-    t.integer "tex_excluded_price"
+    t.integer "item_id"
+    t.integer "including_tax_purchase_price"
     t.integer "amount"
     t.integer "production_status"
     t.datetime "created_at", null: false
@@ -96,7 +96,7 @@ ActiveRecord::Schema.define(version: 2021_07_24_065923) do
     t.integer "payment_method"
     t.integer "status"
     t.integer "shipping_fee"
-    t.integer "tax_rate"
+    t.integer "request_fee"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
