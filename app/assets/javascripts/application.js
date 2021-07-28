@@ -19,3 +19,14 @@
 //= require turbolinks
 //= require_tree .
 
+$(document).ready(function() {
+  $(window).scroll(function() {
+    const navbarCollapsible = document.body.querySelector('#mainNav');
+
+    if ($(this).scrollTop() > 0) {
+      navbarCollapsible.classList.add('navbar-shrink');
+    } else {
+      navbarCollapsible.classList.remove('navbar-shrink');
+    }
+  });
+});

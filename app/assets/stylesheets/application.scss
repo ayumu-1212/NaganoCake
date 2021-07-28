@@ -14,3 +14,78 @@
  *= require_self
  */
 @import "bootstrap";
+
+// home#top
+.nagano-backimage {
+  background-image: image-url("nagano-back.jpg");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
+  height: 100vh;
+
+  /* コンテンツの高さが画像の高さより大きい時、動かないように固定 */
+  // background-attachment: fixed;
+
+  /* 背景画像が読み込まれる前に表示される背景のカラー */
+  background-color: #464646;
+}
+
+// _header
+#mainNav {
+  transition: all 0.2s;
+  color: white;
+}
+
+#mainNav.navbar-shrink {
+  background-color: #fff;
+  color: black;
+}
+
+.top-logo {
+  width: 60%;
+  margin: 20vh auto 0;
+}
+
+.header-logo-black {
+  height: 60px;
+}
+
+.nav-link {
+  color: white;
+}
+
+.header-logo-back {
+  height: 60px;
+  background-image: image-url("logo-black-line.png");
+  width: 256px;
+}
+
+// customers/registration#new
+.sign-up-title {
+  margin-top: 50px;
+}
+
+// customers/session#new
+.sign-in-title {
+  margin-top: 50px;
+}
+
+// admin/homes/top
+.admin-top-title {
+  margin-top: 50px;
+}
+
+// customers#mypage
+.customers-mypage-title {
+  margin-top: 50px;
+}
+
+.mypage-row {
+  margin: 20px 0;
+}
+
+.mypage-row-title {
+  display: inline-block;
+  padding-right: 20px;
+}

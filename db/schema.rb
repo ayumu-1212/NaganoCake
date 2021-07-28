@@ -54,7 +54,7 @@ ActiveRecord::Schema.define(version: 2021_07_24_065923) do
     t.string "postal_code"
     t.string "address"
     t.string "phone_number"
-    t.integer "members_status"
+    t.integer "members_status", default: 1
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_end_users_on_email", unique: true
@@ -83,7 +83,7 @@ ActiveRecord::Schema.define(version: 2021_07_24_065923) do
     t.integer "item_id"
     t.integer "including_tax_purchase_price"
     t.integer "amount"
-    t.integer "production_status"
+    t.integer "production_status", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -94,7 +94,7 @@ ActiveRecord::Schema.define(version: 2021_07_24_065923) do
     t.string "postal_code"
     t.string "address"
     t.integer "payment_method"
-    t.integer "status"
+    t.integer "status", default: 0
     t.integer "shipping_fee"
     t.integer "request_fee"
     t.datetime "created_at", null: false

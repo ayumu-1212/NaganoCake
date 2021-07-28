@@ -37,7 +37,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :address, only: [:index, :edit, :create, :update, :destroy]
+    resources :addresses, only: [:index, :edit, :create, :update, :destroy]
   end
 
   namespace :admin do
