@@ -15,6 +15,8 @@ class EndUser < ApplicationRecord
     validates :first_name_kana
     validates :phone_number
     validates :members_status
+    validates :postal_code
+    validates :address
   end
 
   enum members_status: { 無効: 0, 有効: 1 }

@@ -52,13 +52,13 @@
     <div class="form-row">
       <div class="form-group col-md-6">
         <label for="inputPassword">パスワード(6文字以上)</label>
-        <%= f.text_field :password, autofocus: true, autocomplete: "new-password", placeholder: "パスワード", class: "form-control", id: "inputPassword" %>
+        <%= f.password_field :password, autofocus: true, autocomplete: "new-password", placeholder: "パスワード", class: "form-control", id: "inputPassword" %>
       </div>
     </div>
     <div class="form-row">
       <div class="form-group col-md-6">
         <label for="inputPasswordConfirmation">パスワード(確認用)</label>
-        <%= f.text_field :password_confirmation, autofocus: true, autocomplete: "new-password", placeholder: "パスワード", class: "form-control", id: "inputPasswordConfirmation" %>
+        <%= f.password_field :password_confirmation, autofocus: true, autocomplete: "new-password", placeholder: "パスワード", class: "form-control", id: "inputPasswordConfirmation" %>
       </div>
     </div>
     <div class="actions">
