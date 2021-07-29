@@ -52,7 +52,7 @@ class Admin::Admins::RegistrationsController < Devise::RegistrationsController
 
   # The path used after sign up.
   def after_sign_up_path_for(resource)
-    admin_home_top_path
+    admin_orders_path
   end
 
   # The path used after sign up for inactive accounts.

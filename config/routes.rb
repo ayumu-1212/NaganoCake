@@ -35,7 +35,7 @@ Rails.application.routes.draw do
 
     resources :customers, only: [:index, :show, :edit, :update]
 
-    resources :orders, only: [:show, :update]
+    resources :orders, only: [:show, :update, :index]
   end
 
     devise_for(
@@ -51,7 +51,6 @@ Rails.application.routes.draw do
   )
 
   get "admin/orders/details/:id" => "admin/orders#update_items", as: "admin_order_details"
-  get "admin" => "admin/homes#top", as: "admin_home_top"
   get "about" => "public/homes#about", as: "home_about"
   get "/" => "public/homes#top", as: "root"
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

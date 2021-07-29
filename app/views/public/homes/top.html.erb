@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-light fixed-top transparent_header" id="mainNav">
     <div class="container px-4 px-lg-5">
         <% if admin_signed_in? %>
-            <a class="navbar-brand" href="/admin">
+            <a class="navbar-brand" href="/admin/orders">
                 <%= image_tag "logo-black-line.png", class: "header-logo-black" %>
             </a>
         <% else %>
@@ -39,7 +39,7 @@
                         <%= link_to "会員一覧", admin_customers_path, class: "nav-link" %>
                     </li>
                     <li class="nav-item">
-                        <%= link_to "注文履歴一覧", admin_home_top_path, class: "nav-link" %>
+                        <%= link_to "注文履歴一覧", admin_orders_path, class: "nav-link" %>
                     </li>
                     <li class="nav-item">
                         <%= link_to "ジャンル一覧", admin_genres_path, class: "nav-link" %>

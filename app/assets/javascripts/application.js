@@ -19,6 +19,7 @@
 //= require turbolinks
 //= require_tree .
 
+// public/homes/topのヘッダーの挙動
 $(document).ready(function() {
   $(window).scroll(function() {
     const navbarCollapsible = document.body.querySelector('#mainNav');
@@ -31,6 +32,7 @@ $(document).ready(function() {
   });
 });
 
+// formのvalidation
 (function() {
   'use strict';
   window.addEventListener('turbolinks:load', function() {
@@ -48,3 +50,10 @@ $(document).ready(function() {
     });
   }, false);
 })();
+
+// tableの行全体リンク
+document.addEventListener("turbolinks:load", function() {
+  $(".clickable-row").css("cursor","pointer").click(function() {
+      location.href = $(this).data("href");
+  });
+});

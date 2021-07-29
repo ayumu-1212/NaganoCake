@@ -17,6 +17,7 @@
 
 .page-title {
   margin-top: 50px;
+  margin-bottom: 30px;
 }
 
 // lauouts/_header
@@ -101,4 +102,39 @@
 
 .unsubscribe-box-text {
   margin: 30px 0;
+}
+
+// admin/genre#index
+.admin-genre-new-box {
+  padding: 20px 0 30px;
+}
+
+// admin/items#index
+.admin-items-top-box {
+  display: flex;
+  justify-content: space-between;
+}
+
+.admin-top-title {
+  display: inline-block;
+}
+
+.admin-items-new-button {
+  display: inline-block;
+  margin-top: 50px;
+  margin-bottom: 30px;
+}
+
+// admin/items/new
+.form-inline-block {
+  display: inline-block;
+  width: 90%;
+}
+
+.label-right-space {
+  margin-right: 20px;
+}
+
+.items-new-form-row {
+  margin: 20px 0;
 }

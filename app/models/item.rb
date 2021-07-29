@@ -2,6 +2,8 @@ class Item < ApplicationRecord
   belongs_to :genre
   has_many :cart_items
 
+  attachment :image
+
   with_options presence: true do
     validates :name
     validates :sales_status
