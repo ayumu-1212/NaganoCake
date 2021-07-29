@@ -1,8 +1,9 @@
 <div class="container">
-  <h2 class="sign-up-title page-title">新規会員登録</h2>
+  <h2 class="customers-edit-title page-title">新規情報編集</h2>
 
-  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), :html => {class: "needs-validation", novalidate: true}) do |f| %>
-    <%= render "public/customers/shared/error_messages", resource: resource %>
+  <%= render 'shared/error_message', model: @end_user %>
+
+  <%= form_with model: @end_user, url: customers_path, :html => {class: "needs-validation", novalidate: true}  do |f| %>
 
 
     <div class="form-row">
@@ -73,28 +74,9 @@
         </div>
       </div>
     </div>
-    <div class="form-row">
-      <div class="form-group col-md-6">
-        <label for="inputPassword">パスワード(6文字以上)</label>
-        <%= f.password_field :password, autofocus: true, autocomplete: "new-password", placeholder: "パスワード", required: true, class: "form-control", id: "inputPassword" %>
-        <div class="invalid-feedback">
-          パスワードを入力してください。
-        </div>
-      </div>
-    </div>
-    <div class="form-row">
-      <div class="form-group col-md-6">
-        <label for="inputPasswordConfirmation">パスワード(確認用)</label>
-        <%= f.password_field :password_confirmation, autofocus: true, autocomplete: "new-password", placeholder: "パスワード", required: true, class: "form-control", id: "inputPasswordConfirmation" %>
-        <div class="invalid-feedback">
-          もう一度パスワードを入力してください。
-        </div>
-      </div>
-    </div>
     <div class="actions">
-      <%= f.submit "Sign up", class: "btn btn-success" %>
+      <%= f.submit "編集内容を保存", class: "btn btn-success" %>
+      <%= link_to "退会する", unsubscribe_customers_path, class: "btn btn-danger" %>
     </div>
   <% end %>
-
-  <%= render "public/customers/shared/links" %>
 </div>
