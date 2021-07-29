@@ -87,3 +87,6 @@ gem 'faker'
 
 # seed用データサンプル(和)
 gem "gimei"
+
+# bootstrap風のmodal表示
+gem 'data-confirm-modal'
