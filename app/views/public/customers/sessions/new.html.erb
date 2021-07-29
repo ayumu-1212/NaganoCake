@@ -1,20 +1,27 @@
 <div class="container">
 
-  <h2 class="sign-in-title">ログイン</h2>
+  <h2 class="sign-in-title page-title">ログイン</h2>
 
-  <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+  <%= form_for(resource, as: resource_name, url: session_path(resource_name), :html => {class: "needs-validation", novalidate: true}) do |f| %>
 
+    <%= render "public/customers/shared/error_messages", resource: resource %>
     <div class="form-row">
       <div class="form-group col-md-6">
         <label for="inputEmail">メールアドレス</label>
-        <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "Email", class: "form-control", id: "inputEmail" %>
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "Email", required: true, class: "form-control", id: "inputEmail" %>
+        <div class="invalid-feedback">
+          メールアドレスを入力してください。
+        </div>
       </div>
     </div>
 
     <div class="form-row">
       <div class="form-group col-md-6">
         <label for="inputPassword">パスワード</label>
-        <%= f.password_field :password, autofocus: true, autocomplete: "new-password", placeholder: "パスワード", class: "form-control", id: "inputPassword" %>
+        <%= f.password_field :password, autofocus: true, autocomplete: "new-password", placeholder: "パスワード", required: true, class: "form-control", id: "inputPassword" %>
+        <div class="invalid-feedback">
+          パスワードを入力してください。
+        </div>
       </div>
     </div>
 

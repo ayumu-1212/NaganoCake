@@ -1,0 +1,10 @@
+<% if model.errors.any? %>
+  <div id="error_explanation">
+    <h2><i class="fa fa-flag fa-2x pull-left"></i> <%= pluralize(model.errors.count, "error") %> prohibited this template from being saved:</h2>
+    <ul class="fa-ul">
+      <% model.errors.full_messages.each do |message| %>
+        <li><i class="fa-li fa fa-star"></i> <%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>

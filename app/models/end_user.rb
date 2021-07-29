@@ -4,6 +4,8 @@ class EndUser < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  acts_as_paranoid
+
   has_many :addresses
   has_many :cart_items
   has_many :orders
@@ -14,10 +16,7 @@ class EndUser < ApplicationRecord
     validates :last_name_kana
     validates :first_name_kana
     validates :phone_number
-    validates :members_status
     validates :postal_code
     validates :address
   end
-
-  enum members_status: { 無効: 0, 有効: 1 }
 end

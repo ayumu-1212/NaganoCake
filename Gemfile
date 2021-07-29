@@ -70,5 +70,20 @@ gem "refile", require: "refile/rails", github: 'manfe/refile'
 # 画像加工用（サイズ調整など）gem
 gem "refile-mini_magick"
 
+# ブートストラップ
 gem 'bootstrap', '~> 4.5'
+
+# jquery
 gem 'jquery-rails'
+
+# 日本語設定
+gem 'rails-i18n'
+
+# 論理削除実装
+gem 'paranoia'
+
+# seed用データサンプル(英)
+gem 'faker'
+
+# seed用データサンプル(和)
+gem "gimei"

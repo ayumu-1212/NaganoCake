@@ -12,8 +12,9 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body style="padding-top: 60px;">
-    <%= render "layouts/header" %>
+  <body style="padding-top: 86px;">
+    <%= render "shared/header" %>
+    <%= render "shared/alert" %>
     <%= yield %>
   </body>
 </html>
