@@ -2,7 +2,7 @@ class OrderDetail < ApplicationRecord
   belongs_to :order_details
   with_options presence: true do
     validates :item_name
-    validates :tax_excluded_price
+    validates :including_tax_purchase_price
     validates :amount
     validates :production_status
   end

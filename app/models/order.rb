@@ -9,7 +9,7 @@ class Order < ApplicationRecord
     validates :payment_method
     validates :status
     validates :shipping_fee
-    validates :tax_rate
+    validates :request_total_price
   end
 
   enum payment_method: { クレジットカード: 1, 銀行振込: 2 }

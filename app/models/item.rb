@@ -7,8 +7,13 @@ class Item < ApplicationRecord
   with_options presence: true do
     validates :name
     validates :sales_status
-    validates :tax_excluded_price
+    validates :price
   end
 
   enum sales_status: { 売切れ: 0, 販売中: 1 }
+
+  # 消費税設定
+  def add_tax_price
+    (self.price * 1.08).round
+  end
 end

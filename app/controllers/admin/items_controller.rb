@@ -18,17 +18,26 @@ class Admin::ItemsController < ApplicationController
   end
 
   def edit
+    @item = Item.find(params[:id])
   end
 
   def show
+    @item = Item.find(params[:id])
   end
 
   def update
+    @item = Item.find(params[:id])
+    if @item.update(item_params)
+      flash[:success] = "更新が完了しました"
+      redirect_to admin_item_path(@item.id)
+    else
+      render :edit
+    end
   end
 
 
   private
   def item_params
-    params.require(:item).permit(:name, :description, :tax_excluded_price, :image, :sales_status, :genre_id)
+    params.require(:item).permit(:name, :description, :price, :image, :sales_status, :genre_id)
   end
 end
