@@ -90,3 +90,7 @@ gem "gimei"
 
 # bootstrap風のmodal表示
 gem 'data-confirm-modal'
+
+# pry
+gem 'pry-rails'
+gem 'pry-byebug'
