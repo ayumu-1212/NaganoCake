@@ -155,3 +155,17 @@
 .item-show-table {
   font-size: 16px;
 }
+
+// public/items/index
+.public-genre-list-link:not(:hover) {
+  text-decoration: none;
+}
+
+.public-genre-list-box ul {
+  list-style: none;
+  padding: 0;
+}
+
+.public-genre-list-box strong {
+  border-bottom: 1px solid #dee2e6;
+}
