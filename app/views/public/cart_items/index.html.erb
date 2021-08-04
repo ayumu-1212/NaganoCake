@@ -1,0 +1,54 @@
+<div class="container">
+  <div class="public-cart_items-top-box">
+    <h2 class="public-cart_items-title page-title">ショッピングカート</h2>
+    <%= link_to destroy_all_cart_items_path, method: :delete, data: { confirm: '本当にすべて削除しますか？', cancel: 'やめる', commit: '削除'}, title: '削除確認', class: "btn btn-danger public-cart_items-delete-button" do %>
+      カートを空にする
+    <% end %>
+  </div>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th scope="col">商品名</th>
+        <th scope="col">単価(税込)</th>
+        <th scope="col">数量</th>
+        <th scope="col">小計</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @cart_items.each do |cart_item| %>
+        <tr class="cart_items-index-table">
+          <td class="align-middle">
+            <%= attachment_image_tag cart_item.item, :image, fallback: "no-image.png", class: "cart_items-index-image" %>
+            <%= link_to cart_item.item.name, item_path(cart_item.item_id), class: "cart-items-index-name-link" %>
+          </td>
+          <td class="align-middle">
+            <%= cart_item.item.add_tax_price.to_s(:delimited) %>
+          </td>
+          <td class="align-middle">
+            <%= form_with model: cart_item, url: cart_item_path(cart_item), class: "d-flex" do |f| %>
+              <input type="number" class="form-control" name="cart_item[amount]" id="cart_item_amount" value="<%= cart_item.amount %>" style="max-width: 3rem" min="1">
+              <%= f.submit "変更", class: "btn btn-success ml-3" %>
+            <% end %>
+          </td>
+          <td class="align-middle">
+            <%= (cart_item.item.add_tax_price * cart_item.amount).round %>
+          </td>
+          <td class="align-middle">
+            <%= link_to "削除する", cart_item_path(cart_item), data: { confirm: '本当に削除しますか？', cancel: 'やめる', commit: '削除'}, title: '削除確認', method: :delete, class: "btn btn-danger" %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <div class="d-flex justify-content-between">
+    <%= link_to "買い物を続ける", root_path, class: "btn btn-primary ml-5 go-shopping-button" %>
+    <ul class="list-group list-group-horizontal">
+      <li class="list-group-item list-group-item-secondary">合計金額</li>
+      <li class="list-group-item list-group-item-light">¥ <%= (@cart_items.map { |cart_item| (cart_item.item.add_tax_price * cart_item.amount).round }.sum).to_s(:delimited) %> </li>
+    </ul>
+  </div>
+  <div class="text-center">
+    <%= link_to "情報入力に進む", root_path, class: "btn btn-success go-purchase-button" %>
+  </div>
+</div>

@@ -1,4 +1,5 @@
 class Admin::OrdersController < ApplicationController
+  before_action :authenticate_admin!
   def index
     if params[:end_user_id].nil?
       @orders = Order.all

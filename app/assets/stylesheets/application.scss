@@ -15,9 +15,27 @@
  */
 @import "bootstrap";
 
+
+// aplication
 .page-title {
   margin-top: 50px;
   margin-bottom: 30px;
+}
+
+.wrapper{
+  height: 100%;
+  min-height: 100vh;
+  position: relative;/*←相対位置*/
+  padding-bottom: 120px;/*←footerの高さ*/
+  box-sizing: border-box;/*←全て含めてmin-height:100vhに*/
+}
+
+// layouts/_footer
+
+footer{
+  width: 100%;
+  position: absolute;/*←絶対位置*/
+  bottom: 0; /*下に固定*/
 }
 
 // lauouts/_header
@@ -168,4 +186,34 @@
 
 .public-genre-list-box strong {
   border-bottom: 1px solid #dee2e6;
+}
+
+// public/cart_items/index
+// admin/items#index
+.public-cart_items-top-box {
+  display: flex;
+  justify-content: space-between;
+}
+
+.public-cart_items-title {
+  display: inline-block;
+}
+
+.public-cart_items-delete-button {
+  display: inline-block;
+  margin-top: 50px;
+  margin-bottom: 30px;
+}
+
+// cart_items/index
+.cart_items-index-image {
+  width: 100px;
+}
+
+.go-shopping-button {
+  margin: 6px 0;
+}
+
+.go-purchase-button {
+  margin-top: 50px;
 }

@@ -3,7 +3,7 @@
     <div class="container px-4 px-lg-5 my-5">
         <div class="row gx-4 gx-lg-5 align-items-center">
             <div class="col-md-6">
-              <%= attachment_image_tag @item, :image, class: "item-show-image" %>
+              <%= attachment_image_tag @item, :image, fallback: "no-image.png", class: "item-show-image" %>
             </div>
             <div class="col-md-6">
                 <h1 class="display-5 fw-bolder"><%= @item.name %></h1>
@@ -13,21 +13,21 @@
                 <p class="lead">
                   <%= @item.description %>
                 </p>
-                <div class="d-flex">
-                  <%= form_with model: @cart_item, url: cart_items_path do |f| %>
-                    <input type="number" class="form-control" name="cart_item[amount]" id="cart_item_amount" value="1" style="max-width: 3rem" min="1">
-                    <%= f.hidden_field :end_user_id, value: current_end_user.id %>
+                <%= form_with model: @cart_item, url: cart_items_path do |f| %>
+                  <div class="d-flex">
+                    <input type="number" class="form-control" name="cart_item[amount]" id="cart_item_amount" value="1" style="max-width: 4rem" min="1">
                     <%= f.hidden_field :item_id, value: @item.id %>
-                    <%= button_tag type: "submit", class: "btn btn-outline-dark" do %>
-                      <i class="fas fa-shopping-cart"></i> Add to cart
+                    <% if end_user_signed_in? %>
+                      <%= button_tag type: "submit", class: "btn btn-outline-dark ml-3" do %>
+                        <i class="fas fa-shopping-cart"></i> Add to cart
+                      <% end %>
+                    <% else %>
+                      <%= link_to new_end_user_session_path, data: { confirm: 'カート追加前にログインをお願いします', cancel: '戻る', commit: 'ログイン画面へ'}, title: 'ログイン確認', class: "btn btn-outline-dark ml-3" do %>
+                        <i class="fas fa-shopping-cart"></i> Add to cart
+                      <% end %>
                     <% end %>
-                    <% f.submit "Add to cart", class: "btn btn-outline-dark fas fa-shopping-cart" %>
-                    <!--<button class="btn btn-outline-dark flex-shrink-0" type="button">-->
-                    <!--    <i class="fas fa-shopping-cart"></i>-->
-                    <!--    Add to cart-->
-                    <!--</button>-->
-                  <% end %>
-                </div>
+                  </div>
+                <% end %>
             </div>
         </div>
     </div>
@@ -41,7 +41,7 @@
             <div class="col mb-5">
                 <div class="card h-100">
                     <!-- Product image-->
-                    <%= attachment_image_tag item, :image %>
+                    <%= attachment_image_tag item, :image, fallback: "no-image.png" %>
                     <!-- Product details-->
                     <div class="card-body p-4">
                         <div class="text-center">
