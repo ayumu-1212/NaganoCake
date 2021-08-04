@@ -1,0 +1,160 @@
+<link href="/assets/stylesheets/styles.scss" rel="stylesheet" />
+<script src="/assets/javascripts/scripts.js"></script>
+
+<header class="masthead">
+    <div class="container">
+        <div class="masthead-subheading">About our cake shop!</div>
+        <div class="masthead-heading text-uppercase">HAVE A GOOD CAKE!</div>
+    </div>
+</header>
+<!-- Team-->
+<section class="page-section bg-light" id="team">
+    <div class="container">
+        <div class="text-center">
+            <h2 class="section-heading text-uppercase">Concept</h2>
+            <h3 class="section-subheading text-muted">What our shop cherishes.</h3>
+        </div>
+        <div class="text-center">
+            <%= image_tag 'logo-black.png', class: "about-concept-logo" %>
+        </div>
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center"><p class="h5 large text-muted">"山と川とケーキと"は全国発送可能なケーキ屋さんです。<br>お子様からお年寄りの方までお召し上がりいただけるよう、山と川の幸をふんだんに用いた様々なバリエーションのケーキをご用意しております。<br>また、全国へ発送可能ですので「いつ」でも「どこ」でも注文いただけます。<br>ぜひご注文ください。</p></div>
+        </div>
+    </div>
+</section>
+<!-- Services-->
+<section class="page-section" id="services">
+    <div class="container">
+        <div class="text-center">
+            <h2 class="section-heading text-uppercase">Features</h2>
+            <h3 class="section-subheading text-muted">Our shop strength.</h3>
+        </div>
+        <div class="row text-center">
+            <div class="col-md-4">
+                <span class="fa-stack fa-4x">
+                    <i class="fas fa-circle fa-stack-2x feature-icon-color"></i>
+                    <i class="fas fa-shopping-cart fa-stack-1x fa-inverse"></i>
+                </span>
+                <h4 class="my-3">ネットでどこでも</h4>
+                <p class="text-muted">ネットでいつでもどこでも買うことができます。新商品情報や過去に買った情報も閲覧可能で、遠い家族・友人の家にも届けることができます。</p></p>
+            </div>
+            <div class="col-md-4">
+                <span class="fa-stack fa-4x">
+                    <i class="fas fa-circle fa-stack-2x feature-icon-color"></i>
+                    <i class="fas fa-leaf fa-stack-1x fa-inverse"></i>
+                </span>
+                <h4 class="my-3">自然の恵み</h4>
+                <p class="text-muted">長野の山と川の恵みをふんだんに使ったスイーツを作っています。砂糖・人工甘味料・保存料不使用の体に優しいスイーツになっております。</p>
+            </div>
+            <div class="col-md-4">
+                <span class="fa-stack fa-4x">
+                    <i class="fas fa-circle fa-stack-2x feature-icon-color"></i>
+                    <i class="fas fa-gifts fa-stack-1x fa-inverse"></i>
+                </span>
+                <h4 class="my-3">種類の豊富さ</h4>
+                <p class="text-muted">ケーキを始め、プリン、和菓子、焼き菓子、アメ、ゼリーなど種類豊富に取り揃えております。是非ともお試しくださいませ。</p>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Portfolio Grid-->
+<section class="page-section bg-light" id="portfolio">
+    <div class="container">
+        <div class="text-center">
+            <h2 class="section-heading text-uppercase">Portfolio</h2>
+            <h3 class="section-subheading text-muted">Photos of various sweets.</h3>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-sm-6 mb-4">
+                <!-- Portfolio item 1-->
+                <div class="portfolio-item">
+                    <%= link_to items_path(gid: 1), class: "portfolio-link" do %>
+                        <div class="portfolio-hover">
+                            <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
+                        </div>
+                        <img class="img-fluid portfolio-image" src="/assets/cake-1.jpg" alt="..." />
+                    <% end %>
+                    <div class="portfolio-caption">
+                        <div class="portfolio-caption-heading">Cakes</div>
+                        <div class="portfolio-caption-subheading text-muted">lots of fruit</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-6 mb-4">
+                <!-- Portfolio item 3-->
+                <div class="portfolio-item">
+                    <%= link_to items_path(gid: 2), class: "portfolio-link" do %>
+                        <div class="portfolio-hover">
+                            <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
+                        </div>
+                        <img class="img-fluid portfolio-image" src="/assets/pudding-1.jpg" alt="..." />
+                    <% end %>
+                    <div class="portfolio-caption">
+                        <div class="portfolio-caption-heading">Pudding</div>
+                        <div class="portfolio-caption-subheading text-muted">sweetness and bitterness</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-6 mb-4">
+                <!-- Portfolio item 2-->
+                <div class="portfolio-item">
+                    <%= link_to items_path(gid: 3), class: "portfolio-link" do %>
+                        <div class="portfolio-hover">
+                            <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
+                        </div>
+                        <img class="img-fluid portfolio-image" src="/assets/baked-sweets-1.jpg" alt="..." />
+                    <% end %>
+                    <div class="portfolio-caption">
+                        <div class="portfolio-caption-heading">Baked sweets</div>
+                        <div class="portfolio-caption-subheading text-muted">good smell</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-6 mb-4 mb-lg-0">
+                <!-- Portfolio item 4-->
+                <div class="portfolio-item">
+                    <%= link_to items_path(gid: 4), class: "portfolio-link" do %>
+                        <div class="portfolio-hover">
+                            <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
+                        </div>
+                        <img class="img-fluid portfolio-image" src="/assets/candy-1.jpg" alt="..." />
+                    <% end %>
+                    <div class="portfolio-caption">
+                        <div class="portfolio-caption-heading">Candy</div>
+                        <div class="portfolio-caption-subheading text-muted">light and color</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-6 mb-4 mb-sm-0">
+                <!-- Portfolio item 5-->
+                <div class="portfolio-item">
+                    <%= link_to items_path(gid: 5), class: "portfolio-link" do %>
+                        <div class="portfolio-hover">
+                            <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
+                        </div>
+                        <img class="img-fluid portfolio-image" src="/assets/jelly-1.jpg" alt="..." />
+                    <% end %>
+                    <div class="portfolio-caption">
+                        <div class="portfolio-caption-heading">Jelly</div>
+                        <div class="portfolio-caption-subheading text-muted">plump texture</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-6">
+                <!-- Portfolio item 6-->
+                <div class="portfolio-item">
+                    <%= link_to items_path(gid: 6), class: "portfolio-link" do %>
+                        <div class="portfolio-hover">
+                            <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
+                        </div>
+                        <img class="img-fluid portfolio-image" src="/assets/japanese-sweets-1.jpg" alt="..." />
+                    <% end %>
+                    <div class="portfolio-caption">
+                        <div class="portfolio-caption-heading">Japanese sweets</div>
+                        <div class="portfolio-caption-subheading text-muted">deep taste</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
