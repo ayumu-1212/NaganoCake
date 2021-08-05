@@ -94,3 +94,6 @@ gem 'data-confirm-modal'
 # pry
 gem 'pry-rails'
 gem 'pry-byebug'
+
+# enumを日本語化
+gem 'enum_help'

@@ -69,24 +69,24 @@
       <div class="form-group col-md-12">
       <label>販売ステータス</label><br>
         <div class="custom-control custom-radio">
-          <!-- f.radio_button :sales_status, :売切れ -->
+          <!-- f.radio_button :sales_status, :sold_out -->
           <% if @item.sales_status_before_type_cast == 0 %>
-            <input type="radio" class="custom-control-input" value="売切れ" name="item[sales_status]" id="item_sales_status_売切れ" required checked>
+            <input type="radio" class="custom-control-input" value="sold_out" name="item[sales_status]" id="item_sales_status_sold_out" required checked>
           <% else %>
-            <input type="radio" class="custom-control-input" value="売切れ" name="item[sales_status]" id="item_sales_status_売切れ" required>
+            <input type="radio" class="custom-control-input" value="sold_out" name="item[sales_status]" id="item_sales_status_sold_out" required>
           <% end %>
-          <!-- f.label :sales_status, "売切れ", {value: :売切れ, style: "display: inline-block;"} -->
-          <label style="display: inline-block;" for="item_sales_status_売切れ" class="custom-control-label">売切れ</label>
+          <!-- f.label :sales_status, "sold_out", {value: :sold_out, style: "display: inline-block;"} -->
+          <label style="display: inline-block;" for="item_sales_status_sold_out" class="custom-control-label">売切れ</label>
         </div>
         <div class="custom-control custom-radio mb-3">
-          <!-- f.radio_button :sales_status, :販売中 -->
+          <!-- f.radio_button :sales_status, :on_sale -->
           <% if @item.sales_status_before_type_cast == 1 %>
-            <input type="radio" class="custom-control-input" value="販売中" name="item[sales_status]" id="item_sales_status_販売中" required checked>
+            <input type="radio" class="custom-control-input" value="on_sale" name="item[sales_status]" id="item_sales_status_on_sale" required checked>
           <% else %>
-            <input type="radio" class="custom-control-input" value="販売中" name="item[sales_status]" id="item_sales_status_販売中" required>
+            <input type="radio" class="custom-control-input" value="on_sale" name="item[sales_status]" id="item_sales_status_on_sale" required>
           <% end %>
-          <!-- f.label :sales_status, "販売中", {value: :販売中, style: "display: inline-block;"} -->
-          <label style="display: inline-block;" for="item_sales_status_販売中" class="custom-control-label">販売中</label>
+          <!-- f.label :sales_status, "on_sale", {value: :on_sale, style: "display: inline-block;"} -->
+          <label style="display: inline-block;" for="item_sales_status_on_sale" class="custom-control-label">販売中</label>
           <div class="invalid-feedback">選択してください</div>
         </div>
       </div>

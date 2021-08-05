@@ -10,7 +10,11 @@ class Item < ApplicationRecord
     validates :price
   end
 
-  enum sales_status: { 売切れ: 0, 販売中: 1 }
+  # enum sales_status: { 売切れ: 0, 販売中: 1 }
+  enum sales_status: {
+    sold_out: 0,
+    on_sale: 1
+  }
 
   # 消費税設定
   def add_tax_price
