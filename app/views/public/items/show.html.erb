@@ -1,6 +1,7 @@
 <!-- Product section-->
-<section class="pb-5">
+<div class="pb-5">
     <div class="container px-4 px-lg-5 my-5">
+        <h2 class="page-title">商品詳細</h2>
         <div class="row gx-4 gx-lg-5 align-items-center">
             <div class="col-md-6">
               <%= attachment_image_tag @item, :image, fallback: "no-image.png", class: "item-show-image" %>
@@ -15,13 +16,17 @@
                 </p>
                 <%= form_with model: @cart_item, url: cart_items_path do |f| %>
                   <div class="d-flex">
+                    <% if @item.sold_out? %>
+                      <%= link_to "完売しました", items_path, class: "btn btn-danger disabled px-5" %>
+                    <% elsif end_user_signed_in? %>
                     <input type="number" class="form-control" name="cart_item[amount]" id="cart_item_amount" value="1" style="max-width: 4rem" min="1">
                     <%= f.hidden_field :item_id, value: @item.id %>
-                    <% if end_user_signed_in? %>
                       <%= button_tag type: "submit", class: "btn btn-outline-dark ml-3" do %>
                         <i class="fas fa-shopping-cart"></i> Add to cart
                       <% end %>
                     <% else %>
+                    <input type="number" class="form-control" name="cart_item[amount]" id="cart_item_amount" value="1" style="max-width: 4rem" min="1">
+                      <%= f.hidden_field :item_id, value: @item.id %>
                       <%= link_to new_end_user_session_path, data: { confirm: 'カート追加前にログインをお願いします', cancel: '戻る', commit: 'ログイン画面へ'}, title: 'ログイン確認', class: "btn btn-outline-dark ml-3" do %>
                         <i class="fas fa-shopping-cart"></i> Add to cart
                       <% end %>
@@ -31,7 +36,7 @@
             </div>
         </div>
     </div>
-</section>
+</div>
 <!-- Related items section-->
 <section class="py-5 bg-light">
     <div class="container px-4 px-lg-5 mt-5">
@@ -40,6 +45,10 @@
           <% @items.each do |item| %>
             <div class="col mb-5">
                 <div class="card h-100">
+                    <!-- Sale badge-->
+                    <% if item.sold_out? %>
+                      <div class="badge bg-danger text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sold out</div>
+                    <% end %>
                     <!-- Product image-->
                     <%= attachment_image_tag item, :image, fallback: "no-image.png" %>
                     <!-- Product details-->

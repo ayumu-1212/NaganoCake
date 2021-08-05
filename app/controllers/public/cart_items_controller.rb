@@ -31,8 +31,13 @@ class Public::CartItemsController < ApplicationController
   end
 
   def create
-    @cart_item = CartItem.new(cart_item_params)
-    @cart_item.end_user_id = current_end_user.id
+    if @cart_item = CartItem.find_by(end_user_id: current_end_user.id, item_id: params[:cart_item][:item_id])
+      @cart_item.amount += params[:cart_item][:amount].to_i
+    else
+      @cart_item = CartItem.new(cart_item_params)
+      @cart_item.end_user_id = current_end_user.id
+    end
+
     if @cart_item.save
       flash[:info] = "カートに追加しました"
       redirect_to cart_items_path

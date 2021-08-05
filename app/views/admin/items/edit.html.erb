@@ -70,7 +70,7 @@
       <label>販売ステータス</label><br>
         <div class="custom-control custom-radio">
           <!-- f.radio_button :sales_status, :sold_out -->
-          <% if @item.sales_status_before_type_cast == 0 %>
+          <% if @item.sold_out? %>
             <input type="radio" class="custom-control-input" value="sold_out" name="item[sales_status]" id="item_sales_status_sold_out" required checked>
           <% else %>
             <input type="radio" class="custom-control-input" value="sold_out" name="item[sales_status]" id="item_sales_status_sold_out" required>
@@ -80,7 +80,7 @@
         </div>
         <div class="custom-control custom-radio mb-3">
           <!-- f.radio_button :sales_status, :on_sale -->
-          <% if @item.sales_status_before_type_cast == 1 %>
+          <% if @item.on_sale? %>
             <input type="radio" class="custom-control-input" value="on_sale" name="item[sales_status]" id="item_sales_status_on_sale" required checked>
           <% else %>
             <input type="radio" class="custom-control-input" value="on_sale" name="item[sales_status]" id="item_sales_status_on_sale" required>

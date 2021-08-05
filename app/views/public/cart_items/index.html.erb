@@ -27,7 +27,7 @@
           </td>
           <td class="align-middle">
             <%= form_with model: cart_item, url: cart_item_path(cart_item), class: "d-flex" do |f| %>
-              <input type="number" class="form-control" name="cart_item[amount]" id="cart_item_amount" value="<%= cart_item.amount %>" style="max-width: 3rem" min="1">
+              <input type="number" class="form-control" name="cart_item[amount]" id="cart_item_amount" value="<%= cart_item.amount %>" style="max-width: 4rem" min="1">
               <%= f.submit "変更", class: "btn btn-success ml-3" %>
             <% end %>
           </td>
