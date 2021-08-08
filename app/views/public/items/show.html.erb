@@ -14,7 +14,7 @@
                 <p class="lead">
                   <%= @item.description %>
                 </p>
-                <%= form_with model: @cart_item, url: cart_items_path do |f| %>
+                <%= form_with model: @cart_item, url: cart_items_path, local: true do |f| %>
                   <div class="d-flex">
                     <% if @item.sold_out? %>
                       <%= link_to "完売しました", items_path, class: "btn btn-danger disabled px-5" %>

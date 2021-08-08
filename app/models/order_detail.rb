@@ -1,7 +1,7 @@
 class OrderDetail < ApplicationRecord
-  belongs_to :order_details
+  belongs_to :order
+  belongs_to :item
   with_options presence: true do
-    validates :item_name
     validates :including_tax_purchase_price
     validates :amount
     validates :production_status

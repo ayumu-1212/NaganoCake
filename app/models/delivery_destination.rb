@@ -1,8 +1,8 @@
-class Address < ApplicationRecord
+class DeliveryDestination < ApplicationRecord
     belongs_to :end_user
     with_options presence: true do
       validates :postal_code
-      validates :delivery_address
-      validates :name
+      validates :address
+      validates :label_name
     end
 end

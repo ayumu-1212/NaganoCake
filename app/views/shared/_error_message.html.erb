@@ -1,6 +1,6 @@
 <% if model.errors.any? %>
-  <div id="error_explanation">
-    <h2><i class="fa fa-flag fa-2x pull-left"></i> <%= pluralize(model.errors.count, "error") %> prohibited this template from being saved:</h2>
+  <div id="error_explanation" style="width: 100%">
+    <h2><i class="fa fa-flag fa-2x pull-left"></i> 正しく入力されていない箇所があります。以下をご確認の上、もう一度ご入力ください。</h2>
     <ul class="fa-ul">
       <% model.errors.full_messages.each do |message| %>
         <li><i class="fa-li fa fa-star"></i> <%= message %></li>

@@ -3,7 +3,7 @@
 
   <%= render 'shared/error_message', model: @end_user %>
 
-  <%= form_with model: @end_user, url: customer_path(@end_user), :html => {class: "needs-validation", novalidate: true}  do |f| %>
+  <%= form_with model: @end_user, url: customers_path(@end_user), local: true, :html => {class: "needs-validation", novalidate: true}  do |f| %>
 
 
     <div class="form-row">

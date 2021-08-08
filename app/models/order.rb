@@ -3,9 +3,9 @@ class Order < ApplicationRecord
   belongs_to :end_user
 
   with_options presence: true do
-    validates :address_label
+    validates :label_name
     validates :postal_code
-    validates :delivery_address
+    validates :address
     validates :payment_method
     validates :status
     validates :shipping_fee
@@ -25,4 +25,5 @@ class Order < ApplicationRecord
     preparing_delivery: 3,
     delivered: 4
   }
+
 end

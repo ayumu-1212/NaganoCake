@@ -1,0 +1,110 @@
+<!--料金設定・計算-->
+<% shipping_fee = 800 %>
+<% request_total_price = @cart_items.map { |cart_item| (cart_item.item.add_tax_price * cart_item.amount).round }.sum %>
+
+<div class="container">
+  <h2 class="public-cart_items-title page-title">注文情報確認</h2>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th scope="col">商品名</th>
+        <th scope="col">単価(税込)</th>
+        <th scope="col">数量</th>
+        <th scope="col">小計</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @cart_items.each do |cart_item| %>
+        <tr class="cart_items-index-table">
+          <td class="align-middle">
+            <%= attachment_image_tag cart_item.item, :image, fallback: "no-image.png", class: "cart_items-index-image" %>
+            <%= link_to cart_item.item.name, item_path(cart_item.item_id), class: "cart-items-index-name-link" %>
+          </td>
+          <td class="align-middle">
+            <%= cart_item.item.add_tax_price.to_s(:delimited) %>
+          </td>
+          <td class="align-middle">
+            <%= cart_item.amount.to_s(:delimited) %>
+          </td>
+          <td class="align-middle">
+            <%= ((cart_item.item.add_tax_price * cart_item.amount).round).to_s(:delimited) %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <div class="d-flex justify-content-between flex-wrap-reverse mt-5">
+    <table class="table table-borderless col-lg-7">
+      <tbody>
+        <tr>
+          <th scope="row" class="align-middle">支払方法</th>
+          <td class="align-middle">
+            <% if params[:order][:payment_method] == "credit_cart" %>
+              クレジットカード
+            <% else %>
+              銀行振込
+            <% end %>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row" class="align-middle">お届け先</th>
+          <td class="align-middle">
+            〒 <%= params[:order][:postal_code] %> <%= params[:order][:address] %> <%= params[:order][:label_name] %>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <table class="table table-bordered col-lg-4">
+      <tbody>
+        <tr>
+          <th scope="row" class="text-white order-confirm-th-col">送料</th>
+          <td>
+            <%= shipping_fee.to_s(:delimited) %>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row" class="text-white order-confirm-th-col">商品合計</th>
+          <td>
+            <%= request_total_price.to_s(:delimited) %>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row" class="text-white order-confirm-th-col">請求金額</th>
+          <td>
+            <%= (shipping_fee + request_total_price).to_s(:delimited) %>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="text-center mt-5">
+    <%= form_with model: @order, url: back_orders_path, method: :post, class: "d-inline-block", local: true do |f| %>
+      <%= f.hidden_field :label_name, value: params[:order][:label_name] %>
+      <%= f.hidden_field :postal_code, value: params[:order][:postal_code] %>
+      <%= f.hidden_field :address, value: params[:order][:address] %>
+      <%= f.hidden_field :payment_method, value: params[:order][:payment_method] %>
+      <%= f.hidden_field :delivery_destination_item, value: params[:order][:delivery_destination_item] %>
+      <%= f.hidden_field :delivery_destination_id, value: params[:order][:delivery_destination_id] %>
+      <%= f.submit "修正する", class: "btn btn-secondary" %>
+    <% end %>
+    <%= form_with model: @order, url: orders_path, method: :post, class: "d-inline-block ml-3", local: true do |f| %>
+      <%= f.hidden_field :label_name, value: params[:order][:label_name] %>
+      <%= f.hidden_field :postal_code, value: params[:order][:postal_code] %>
+      <%= f.hidden_field :address, value: params[:order][:address] %>
+      <%= f.hidden_field :payment_method, value: params[:order][:payment_method] %>
+      <%= f.hidden_field :shipping_fee, value: shipping_fee %>
+      <%= f.hidden_field :request_total_price, value: request_total_price %>
+      <%= f.hidden_field :delivery_destination_item, value: params[:order][:delivery_destination_item] %>
+      <%= f.submit "注文を確定する", class: "btn btn-success" %>
+    <% end %>
+  </div>
+</div>
+
+<!--confirmにURLを変更-->
+<script>
+  function convertToConfirmUrl(url) {
+    // URLを変更
+    history.replaceState('', '', `${ url }`)
+  }
+  window.onload = convertToConfirmUrl("/orders/confirm");
+</script>

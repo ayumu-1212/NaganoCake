@@ -1,0 +1,52 @@
+<div class="container">
+  <h2 class="page-title">注文履歴一覧</h2>
+  <div class="addresses-box">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th scope="col">注文日</th>
+          <th scope="col">配送先</th>
+          <th scope="col">注文商品</th>
+          <th scope="col">支払金額</th>
+          <th scope="col">ステータス</th>
+          <th scope="col">注文詳細</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if @orders.present? %>
+          <% @orders.each do |order| %>
+            <tr class="cart_items-index-table">
+              <td class="align-middle">
+                <%= order.created_at.strftime("%Y/%m/%d") %>
+              </td>
+              <td class="align-middle">
+                〒<%= order.postal_code %><br>
+                <%= order.address %><br>
+                <%= order.label_name %>
+              </td>
+              <td class="align-middle">
+                <%= order.order_details.first.item.name %>
+                <% if order.order_details.length >= 2 %>
+                  他<%= order.order_details.length - 1 %>つ
+                <% end %>
+              </td>
+              <td class="align-middle">
+                ¥ <%= (order.request_total_price + order.shipping_fee).to_s(:delimited) %>
+              </td>
+              <td class="align-middle">
+                <%= order.status_i18n %>
+              </td>
+              <td class="align-middle text-center">
+                <%= link_to "表示する", order_path(order), class: "btn btn-primary" %>
+              </td>
+            </tr>
+          <% end %>
+        <% else %>
+          <td colspan="6" class="text-center py-3">
+            購入しておりません。
+          </td>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
