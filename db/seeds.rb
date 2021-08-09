@@ -13,7 +13,7 @@ Admin.create!(
     password: "aaaaaa"
 )
 
-30.times do |n|
+100.times do |n|
     gimei = Gimei.new
     address = Gimei.address
     email = Faker::Internet.email

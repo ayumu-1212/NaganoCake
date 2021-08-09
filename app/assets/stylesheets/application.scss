@@ -243,3 +243,30 @@ footer{
 .admin-order-user-link:not(:hover) {
   text-decoration: none;
 }
+
+// kaminariのデザイン
+.pagination>li>a {
+  border: none;
+  color: #696969;
+  width: 36px;
+  text-align: center;
+}
+
+/* 表示しているページ番号のデザイン */
+.pagination>.active>a {
+  background-color: #93c9ff !important;
+  border-radius: 18px;
+  width: 36px;
+  text-align: center;
+}
+
+/*ホバー時のデザイン*/
+.pagination>li>a:hover {
+  border-radius: 18px;
+  width: 36px;
+  text-align: center;
+}
+
+.pagination>li {
+  width: 36px;
+}

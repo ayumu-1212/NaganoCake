@@ -27,9 +27,9 @@
             <th scope="row">販売ステータス</th>
             <td>
               <% if @item.on_sale? %>
-                <span class="text-muted">販売停止中</span>
-              <% else %>
                 <span class="text-success">販売中</span>
+              <% else %>
+                <span class="text-muted">販売停止中</span>
               <% end %>
             </td>
           </tr>

@@ -97,3 +97,9 @@ gem 'pry-byebug'
 
 # enumを日本語化
 gem 'enum_help'
+
+# 検索機能
+gem 'ransack'
+
+# ページネーション
+gem 'kaminari'

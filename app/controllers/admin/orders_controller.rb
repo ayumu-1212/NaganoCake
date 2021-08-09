@@ -2,10 +2,10 @@ class Admin::OrdersController < ApplicationController
   before_action :authenticate_admin!
   def index
     if params[:end_user_id].nil?
-      @orders = Order.all
+      @orders = Order.all.page(params[:page]).per(20)
     else
       end_user = EndUser.find(params[:end_user_id])
-      @orders = Order.where(end_user_id: end_user.id)
+      @orders = Order.where(end_user_id: end_user.id).page(params[:page]).per(20)
       flash.now[:info] = "こちらは#{end_user.last_name + end_user.first_name}さんの注文履歴です。"
     end
   end

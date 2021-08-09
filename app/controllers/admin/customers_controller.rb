@@ -1,6 +1,6 @@
 class Admin::CustomersController < ApplicationController
   def index
-    @end_users = EndUser.with_deleted.all
+    @end_users = EndUser.with_deleted.all.page(params[:page]).per(20)
   end
 
   def show

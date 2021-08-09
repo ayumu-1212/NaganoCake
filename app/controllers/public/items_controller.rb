@@ -1,10 +1,10 @@
 class Public::ItemsController < ApplicationController
   def index
     if params[:gid].nil?
-      @items = Item.all
+      @items = Item.all.page(params[:page]).per(12)
     else
       @genre = Genre.find(params[:gid])
-      @items = @genre.items
+      @items = @genre.items.page(params[:page]).per(12)
     end
   end
 
