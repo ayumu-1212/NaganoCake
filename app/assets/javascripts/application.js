@@ -20,14 +20,16 @@
 //= require_tree .
 
 // bootstrapのファイルフォームのデザインテンプレ
-$(document).ready(function () {
-  bsCustomFileInput.init()
-  document.getElementById('inputFileReset').addEventListener('click', function() {
-    var elem = document.getElementById('inputItemImage');
-    elem.value = '';
-    elem.dispatchEvent(new Event('change'));
+document.addEventListener("turbolinks:load", function() {
+  $(document).ready(function () {
+    bsCustomFileInput.init()
+    document.getElementById('inputFileReset').addEventListener('click', function() {
+      var elem = document.getElementById('inputItemImage');
+      elem.value = '';
+      elem.dispatchEvent(new Event('change'));
+    });
   });
-})
+});
 
 // public/homes/topのヘッダーの挙動
 $(document).ready(function() {

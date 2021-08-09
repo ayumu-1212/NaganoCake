@@ -53,7 +53,7 @@ Rails.application.routes.draw do
     module: 'admin/admins'
   )
 
-  get "admin/orders/details/:id" => "admin/orders#update_items", as: "admin_order_details"
+  patch "admin/orders/details/:id" => "admin/orders#update_items", as: "admin_order_details"
   get "about" => "public/homes#about", as: "home_about"
   get "/" => "public/homes#top", as: "root"
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

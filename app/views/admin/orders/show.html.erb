@@ -6,6 +6,12 @@
       <table class="table table-bordered">
         <tbody>
           <tr>
+            <th scope="row" class="text-white order-confirm-th-col">購入者</th>
+            <td>
+              <%= link_to (@order.end_user.last_name + @order.end_user.first_name), admin_customer_path(@order.end_user), class: "admin-order-user-link" %>
+            </td>
+          </tr>
+          <tr>
             <th scope="row" class="text-white order-confirm-th-col">注文日</th>
             <td>
               <%= @order.created_at.strftime("%Y/%m/%d") %>
@@ -28,7 +34,18 @@
           <tr>
             <th scope="row" class="text-white order-confirm-th-col">注文ステータス</th>
             <td>
-              <%= @order.status_i18n %>
+              <%= form_with model: @order, url: admin_order_path(@order), local: true, class: "d-flex" do |f| %>
+                <select name="order[status]" id="item_status" class="custom-select">
+                  <% Order.statuses_i18n.each do |status| %>
+                    <% if status[0] == @order.status %>
+                      <option value="<%= status[0] %>" selected><%= status[1] %></option>
+                    <% else %>
+                      <option value="<%= status[0] %>"><%= status[1] %></option>
+                    <% end %>
+                  <% end %>
+                </select>
+                <%= f.submit "変更", class: "btn btn-success ml-3" %>
+              <% end %>
             </td>
           </tr>
         </tbody>
@@ -69,13 +86,14 @@
           <th scope="col">単価（税込）</th>
           <th scope="col">個数</th>
           <th scope="col">小計</th>
+          <th scope="col">製作ステータス</th>
         </tr>
       </thead>
       <tbody>
         <% @order_details.each do |order_detail| %>
           <tr>
             <td class="align-middle">
-              <%= link_to order_detail.item.name, item_path(order_detail.item_id), class: "public-order-item-link" %>
+              <%= link_to order_detail.item.name, admin_item_path(order_detail.item_id), class: "public-order-item-link" %>
             </td>
             <td class="align-middle">
               <%= (order_detail.including_tax_purchase_price).to_s(:delimited) %>
@@ -85,6 +103,20 @@
             </td>
             <td class="align-middle">
               <%= (order_detail.including_tax_purchase_price * order_detail.amount).to_s(:delimited) %>
+            </td>
+            <td class="align-middle">
+              <%= form_with model: order_detail, url: admin_order_details_path(order_detail), local: true, class: "d-flex" do |f| %>
+                <select name="order_detail[production_status]" id="order_detail_production_status" class="custom-select">
+                  <% OrderDetail.production_statuses_i18n.each do |status| %>
+                    <% if status[0] == order_detail.production_status %>
+                      <option value="<%= status[0] %>" selected><%= status[1] %></option>
+                    <% else %>
+                      <option value="<%= status[0] %>"><%= status[1] %></option>
+                    <% end %>
+                  <% end %>
+                </select>
+                <%= f.submit "変更", class: "btn btn-success ml-3" %>
+              <% end %>
             </td>
           </tr>
         <% end %>

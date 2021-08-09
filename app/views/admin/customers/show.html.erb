@@ -44,6 +44,8 @@
       </tr>
     </tbody>
   </table>
-  <%= link_to "編集する", edit_admin_customer_path(@end_user), class: "btn btn-success" %>
-  <%= link_to "注文履歴一覧を見る", admin_orders_path(end_user_id: @end_user.id), class: "btn btn-primary" %>
+  <div class="text-center pt-5">
+    <%= link_to "編集する", edit_admin_customer_path(@end_user), class: "btn btn-success" %>
+    <%= link_to "注文履歴一覧を見る", admin_orders_path(end_user_id: @end_user.id), class: "btn btn-primary ml-3" %>
+  </div>
 </div>

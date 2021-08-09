@@ -218,7 +218,7 @@ footer{
   margin-top: 50px;
 }
 
-// orders/confirm
+// orders/order_valid
 .order-confirm-th-col {
   background-color: #c2c6cc;
 }
@@ -232,4 +232,14 @@ footer{
 // address/index
 .new-address-form-box {
   margin: 50px 0 100px;
+}
+
+// public/order/show
+.public-order-item-link:not(:hover) {
+  text-decoration: none;
+}
+
+// admin/order/show
+.admin-order-user-link:not(:hover) {
+  text-decoration: none;
 }

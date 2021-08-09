@@ -18,7 +18,7 @@
     <tbody>
       <% if @cart_items.present? %>
         <% @cart_items.each do |cart_item| %>
-          <tr class="cart_items-index-table">
+          <tr>
             <td class="align-middle">
               <%= attachment_image_tag cart_item.item, :image, fallback: "no-image.png", class: "cart_items-index-image" %>
               <%= link_to cart_item.item.name, item_path(cart_item.item_id), class: "cart-items-index-name-link" %>
