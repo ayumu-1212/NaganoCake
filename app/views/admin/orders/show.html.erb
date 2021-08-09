@@ -123,6 +123,9 @@
       </tbody>
     </table>
   </div>
+  <div class="mypage-row text-center mt-5">
+    <%= link_to "このユーザーの注文履歴を見る", admin_orders_path(end_user_id: @order.end_user), class: "btn btn-primary ml-3" %>
+  </div>
 </div>
 
 
