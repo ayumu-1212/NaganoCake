@@ -1,36 +1,120 @@
 <div class="container">
-  <h2 class="admin-top-title page-title">会員一覧</h2>
+  <div class="admin-customers-top-box">
+    <h2 class="page-title">会員一覧</h2>
+    <div class="admin-cutomers-top-badges">
+      <% if params[:q].present? %>
+        <span class="badge badge-secondary bg-color-a3a6a9"><%= "ID：#{params[:q][:id_eq]}" if params[:q][:id_eq].present? %></span>
+        <span class="badge badge-secondary bg-color-a3a6a9"><%= "氏名：#{params[:q][:last_name_or_first_name_or_last_name_kana_or_first_name_kana_cont]}" if params[:q][:last_name_or_first_name_or_last_name_kana_or_first_name_kana_cont].present? %></span>
+        <span class="badge badge-secondary bg-color-a3a6a9"><%= "メアド：#{params[:q][:email_cont]}" if params[:q][:email_cont].present? %></span>
+        <span class="badge badge-secondary bg-color-a3a6a9"><%= "電話番号：#{params[:q][:phone_number_cont]}" if params[:q][:phone_number_cont].present? %></span>
+        <span class="badge badge-secondary bg-color-a3a6a9"><%= "郵便番号：#{params[:q][:postal_code_cont]}" if params[:q][:postal_code_cont].present? %></span>
+        <span class="badge badge-secondary bg-color-a3a6a9"><%= "住所：#{params[:q][:address_cont]}" if params[:q][:address_cont].present? %></span>
+        <span class="badge badge-secondary bg-color-a3a6a9"><%= "ステータス：有効" if params[:q][:deleted_at_blank] == "true" %></span>
+        <span class="badge badge-secondary bg-color-a3a6a9"><%= "ステータス：退会" if params[:q][:deleted_at_blank] == "false" %></span>
+      <% end %>
+    </div>
+    <%= link_to "#collapseSearchForm", 'data-toggle': :"collapse", 'aria-expanded': :"false", 'aria-controls': :"collapseSearchForm", class: "btn btn-light shadow admin-customers-top-button" do %>
+      <i class="fas fa-search"></i> 検索
+    <% end %>
+  </div>
+  <div class="collapse" id="collapseSearchForm">
+    <div class="collapse-wrapper">
+      <div class="card card-body">
+        <%= search_form_for @q, url: admin_customers_path do |f| %>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="inputSearchId">会員ID</label>
+              <%= f.number_field :id_eq, autofocus: true, placeholder: "会員ID", class: "form-control", id: "inputSearchID" %>
+            </div>
+            <div class="form-group col-md-6">
+              <label for="inputSearchName">氏名</label>
+              <%= f.search_field :last_name_or_first_name_or_last_name_kana_or_first_name_kana_cont, autofocus: true, placeholder: "姓名・セイメイ", class: "form-control", id: "inputSearchName" %>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="inputSearchEmail">メールアドレス</label>
+              <%= f.search_field :email_cont, autofocus: true, placeholder: "メールアドレス", class: "form-control", id: "inputSearchEmail" %>
+            </div>
+            <div class="form-group col-md-6">
+              <label for="inputSearchPhoneNumber">電話番号(ハイフンなし)</label>
+              <%= f.search_field :phone_number_cont, autofocus: true, placeholder: "電話番号", class: "form-control", id: "inputSearchPhoneNumber" %>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="inputSearchPostalCode">郵便番号(ハイフンなし)</label>
+              <%= f.search_field :postal_code_cont, autofocus: true, placeholder: "郵便番号", class: "form-control", id: "inputSearchPostalCode" %>
+            </div>
+            <div class="form-group col-md-6">
+              <label for="inputSearchAddress">住所</label>
+              <%= f.search_field :address_cont, autofocus: true, placeholder: "住所", class: "form-control", id: "inputSearchAddress" %>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-12">
+            <label>会員ステータス</label><br>
+              <div class="custom-control custom-radio">
+                <input type="radio" class="custom-control-input" value="true" name="q[deleted_at_blank]" id="q_deleted_at_present_true" <%= "checked" if params[:q].present? && params[:q][:deleted_at_blank] == "true" %>>
+                <label style="display: inline-block;" for="q_deleted_at_present_true" class="custom-control-label">有効</label>
+              </div>
+              <div class="custom-control custom-radio">
+                <input type="radio" class="custom-control-input" value="false" name="q[deleted_at_blank]" id="q_deleted_at_present_false" <%= "checked" if params[:q].present? && params[:q][:deleted_at_blank] == "false" %>>
+                <label style="display: inline-block;" for="q_deleted_at_present_false" class="custom-control-label">退会</label>
+              </div>
+              <div class="custom-control custom-radio">
+                <input type="radio" class="custom-control-input" value="" name="q[deleted_at_blank]" id="q_deleted_at_present_false" <%= "checked" if params[:q].blank? || params[:q][:deleted_at_blank].blank? %>>
+                <label style="display: inline-block;" for="q_deleted_at_present_false" class="custom-control-label">どちらでもよい</label>
+              </div>
+            </div>
+          </div>
+          <div class="actions text-center">
+            <%= button_tag type: "submit", class: "btn btn-primary px-3" do %>
+              <i class="fa fa-search"></i> 検索
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
   <table class="table table-striped table-hover">
     <thead>
       <tr>
-        <th scope="col">会員ID</th>
-        <th scope="col">氏名</th>
-        <th scope="col">メールアドレス</th>
-        <th scope="col">ステータス</th>
+        <th scope="col"><%= sort_link(@q, :id, "会員ID") %></th>
+        <th scope="col"><%= sort_link(@q, :last_name_kana, "氏名") %></th>
+        <th scope="col"><%= sort_link(@q, :email, "メールアドレス") %></th>
+        <th scope="col"><%= sort_link(@q, :deleted_at, "ステータス") %></th>
       </tr>
     </thead>
     <tbody>
-      <% @end_users.each do |end_user| %>
-        <tr class="clickable-row" data-href="/admin/customers/<%= end_user.id %>">
-          <td>
-            <%= end_user.id %>
-          </td>
-          <td>
-            <%= end_user.last_name + end_user.first_name %>
-          </td>
-          <td>
-            <%= end_user.email %>
-          </td>
-          <td>
-            <% if end_user.deleted_at.nil? %>
-              <span class="text-success">有効</span>
-            <% else %>
-              <span class="text-danger">
-                <%= end_user.deleted_at.strftime("%Y/%m/%d %H:%M") %> に退会済み
-              </span>
-            <% end %>
-          </td>
-        </tr>
+      <% if @end_users.present? %>
+        <% @end_users.each do |end_user| %>
+          <tr class="clickable-row" data-href="/admin/customers/<%= end_user.id %>">
+            <td>
+              <%= end_user.id %>
+            </td>
+            <td>
+              <%= end_user.last_name + end_user.first_name %>
+            </td>
+            <td>
+              <%= end_user.email %>
+            </td>
+            <td>
+              <% if end_user.deleted_at.nil? %>
+                <span class="text-success">有効</span>
+              <% else %>
+                <span class="text-danger">
+                  <%= end_user.deleted_at.strftime("%Y/%m/%d %H:%M") %> に退会済み
+                </span>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      <% else %>
+        <td colspan="4" class="text-center py-3">
+          データがありません
+        </td>
       <% end %>
     </tbody>
   </table>

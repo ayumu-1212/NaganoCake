@@ -1,6 +1,7 @@
 class Admin::CustomersController < ApplicationController
   def index
-    @end_users = EndUser.with_deleted.all.page(params[:page]).per(20)
+    @q = EndUser.with_deleted.ransack(params[:q]) # ransackとparanoia
+    @end_users = @q.result.page(params[:page]).per(20) #ransackとkaminari
   end
 
   def show
