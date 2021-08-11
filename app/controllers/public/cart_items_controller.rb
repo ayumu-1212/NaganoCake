@@ -1,5 +1,6 @@
 class Public::CartItemsController < ApplicationController
   before_action :authenticate_end_user!
+  before_action :identity_verification, only: [:update, :destroy]
   def index
     @cart_items = current_end_user.cart_items
   end
@@ -47,6 +48,14 @@ class Public::CartItemsController < ApplicationController
   end
 
   private
+  def identity_verification
+    cart_item = CartItem.find(params[:id])
+    if cart_item.end_user_id = current_end_user.id
+      flash[:danger] = "アクセスできません"
+      redirect_to mypage_customers_path
+    end
+  end
+
   def cart_item_params
     params.require(:cart_item).permit(:amount, :end_user_id, :item_id)
   end

@@ -1,5 +1,6 @@
 class Public::AddressesController < ApplicationController
   before_action :authenticate_end_user!
+  before_action :identity_verification, only: [:edit, :update, :destroy]
   def index
     @delivery_destination = DeliveryDestination.new
     @delivery_destinations = current_end_user.delivery_destinations
@@ -39,6 +40,14 @@ class Public::AddressesController < ApplicationController
   end
 
   private
+  def identity_verification
+    delivery_destination = DeliveryDestination.find(params[:id])
+    if delivery_destination.end_user_id = current_end_user.id
+      flash[:danger] = "アクセスできません"
+      redirect_to mypage_customers_path
+    end
+  end
+
   def delivery_destination_params
     params.require(:delivery_destination).permit(:postal_code, :address, :label_name, :end_user_id)
   end

@@ -1,5 +1,6 @@
 class Public::OrdersController < ApplicationController
   before_action :authenticate_end_user!
+  before_action :identity_verification, only: [:show]
   def index
     @orders = current_end_user.orders
   end
@@ -114,6 +115,14 @@ class Public::OrdersController < ApplicationController
   end
 
   private
+  def identity_verification
+    order = Order.find(params[:id])
+    if order.end_user_id = current_end_user.id
+      flash[:danger] = "アクセスできません"
+      redirect_to mypage_customers_path
+    end
+  end
+
   def order_params
     params.require(:order).permit(:label_name, :postal_code, :address, :payment_method, :status, :shipping_fee, :request_total_price, :delivery_destination_item, :delivery_destination_id)
   end
