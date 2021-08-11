@@ -1,11 +1,7 @@
 class Public::ItemsController < ApplicationController
   def index
-    if params[:gid].nil?
-      @items = Item.all.page(params[:page]).per(12)
-    else
-      @genre = Genre.find(params[:gid])
-      @items = @genre.items.page(params[:page]).per(12)
-    end
+    @q = Item.ransack(params[:q]) # ransack
+    @items = @q.result.page(params[:page]).per(20) #ransackとkaminari
   end
 
   def show
