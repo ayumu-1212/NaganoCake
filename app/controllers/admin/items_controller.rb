@@ -1,7 +1,8 @@
 class Admin::ItemsController < ApplicationController
   before_action :authenticate_admin!
   def index
-    @items = Item.all.page(params[:page]).per(20)
+    @q = Item.ransack(params[:q]) # ransack
+    @items = @q.result.page(params[:page]).per(20) #ransackとkaminari
   end
 
   def create

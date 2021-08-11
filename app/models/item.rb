@@ -21,4 +21,15 @@ class Item < ApplicationRecord
   def add_tax_price
     (self.price * 1.08).round
   end
+
+  # ransack
+  scope :sort_by_genre_name_asc, lambda {
+    eager_load(:genre)
+      .order(Arel.sql('genres.name COLLATE "C" ASC'))
+  }
+
+  scope :sort_by_user_name_kana_desc, lambda {
+    eager_load(:user)
+      .order(Arel.sql('genres.name COLLATE "C" DESC'))
+  }
 end

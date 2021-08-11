@@ -55,16 +55,16 @@
             <div class="form-group col-md-12">
             <label>会員ステータス</label><br>
               <div class="custom-control custom-radio">
-                <input type="radio" class="custom-control-input" value="true" name="q[deleted_at_blank]" id="q_deleted_at_present_true" <%= "checked" if params[:q].present? && params[:q][:deleted_at_blank] == "true" %>>
-                <label style="display: inline-block;" for="q_deleted_at_present_true" class="custom-control-label">有効</label>
+                <input type="radio" class="custom-control-input" value="true" name="q[deleted_at_blank]" id="q_deleted_at_blank_true" <%= "checked" if params[:q].present? && params[:q][:deleted_at_blank] == "true" %>>
+                <label style="display: inline-block;" for="q_deleted_at_blank_true" class="custom-control-label">有効</label>
               </div>
               <div class="custom-control custom-radio">
-                <input type="radio" class="custom-control-input" value="false" name="q[deleted_at_blank]" id="q_deleted_at_present_false" <%= "checked" if params[:q].present? && params[:q][:deleted_at_blank] == "false" %>>
-                <label style="display: inline-block;" for="q_deleted_at_present_false" class="custom-control-label">退会</label>
+                <input type="radio" class="custom-control-input" value="false" name="q[deleted_at_blank]" id="q_deleted_at_blank_false" <%= "checked" if params[:q].present? && params[:q][:deleted_at_blank] == "false" %>>
+                <label style="display: inline-block;" for="q_deleted_at_blank_false" class="custom-control-label">退会</label>
               </div>
               <div class="custom-control custom-radio">
-                <input type="radio" class="custom-control-input" value="" name="q[deleted_at_blank]" id="q_deleted_at_present_false" <%= "checked" if params[:q].blank? || params[:q][:deleted_at_blank].blank? %>>
-                <label style="display: inline-block;" for="q_deleted_at_present_false" class="custom-control-label">どちらでもよい</label>
+                <input type="radio" class="custom-control-input" value="" name="q[deleted_at_blank]" id="q_deleted_at_blank_nil" <%= "checked" if params[:q].blank? || params[:q][:deleted_at_blank].blank? %>>
+                <label style="display: inline-block;" for="q_deleted_at_blank_nil" class="custom-control-label">どちらでもよい</label>
               </div>
             </div>
           </div>

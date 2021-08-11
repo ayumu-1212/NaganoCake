@@ -139,22 +139,6 @@ footer{
   padding: 20px 0 30px;
 }
 
-// admin/items#index
-.admin-items-top-box {
-  display: flex;
-  justify-content: space-between;
-}
-
-.admin-top-title {
-  display: inline-block;
-}
-
-.admin-items-new-button {
-  display: inline-block;
-  margin-top: 50px;
-  margin-bottom: 30px;
-}
-
 // admin/items/new
 .form-inline-block {
   display: inline-block;
@@ -289,8 +273,8 @@ footer{
 }
 
 .admin-customers-top-button {
-  margin-left: auto;
   display: inline-block;
+  margin-left: auto;
   margin-top: 50px;
   margin-bottom: 30px;
 }
@@ -298,4 +282,36 @@ footer{
 .admin-cutomers-top-badges {
   font-size: 24px;
   padding: 50px 0 0 10px;
+}
+
+// admin/items#index
+.admin-items-top-box {
+  display: flex;
+}
+
+.admin-top-title {
+  display: inline-block;
+}
+
+.admin-items-search-button {
+  display: inline-block;
+  margin-left: auto;
+  margin-top: 50px;
+  margin-bottom: 30px;
+}
+.admin-items-new-button {
+  display: inline-block;
+  margin-left: 10px;
+  margin-top: 50px;
+  margin-bottom: 30px;
+}
+
+.admin-items-top-badges {
+  font-size: 24px;
+  padding: 50px 0 0 10px;
+}
+
+.admin-items-search-price-yen {
+  line-height: 38px;
+  font-size: 20px;
 }

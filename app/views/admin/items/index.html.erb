@@ -1,43 +1,135 @@
 <div class="container">
   <div class="admin-items-top-box">
     <h2 class="admin-top-title page-title">商品一覧</h2>
+    <div class="admin-items-top-badges">
+      <% if params[:q].present? %>
+        <span class="badge badge-secondary bg-color-a3a6a9"><%= "ID：#{params[:q][:id_eq]}" if params[:q][:id_eq].present? %></span>
+        <span class="badge badge-secondary bg-color-a3a6a9"><%= "キーワード：#{params[:q][:name_or_description_cont]}" if params[:q][:name_or_description_cont].present? %></span>
+        <span class="badge badge-secondary bg-color-a3a6a9"><%= "#{params[:q][:price_gteq]}円以上" if params[:q][:price_gteq].present? %></span>
+        <span class="badge badge-secondary bg-color-a3a6a9"><%= "#{params[:q][:price_lteq]}円以下" if params[:q][:price_lteq].present? %></span>
+        <span class="badge badge-secondary bg-color-a3a6a9"><%= "ジャンル：#{Genre.find(params[:q][:genre_id_eq]).name}" if params[:q][:genre_id_eq].present? %></span>
+        <span class="badge badge-secondary bg-color-a3a6a9"><%= "販売中のみ" if params[:q][:sales_status_eq] == "1" %></span>
+        <span class="badge badge-secondary bg-color-a3a6a9"><%= "販売停止のみ" if params[:q][:sales_status_eq] == "0" %></span>
+      <% end %>
+    </div>
+    <%= link_to "#collapseSearchForm", 'data-toggle': :"collapse", 'aria-expanded': :"false", 'aria-controls': :"collapseSearchForm", class: "btn btn-light shadow admin-items-search-button" do %>
+      <i class="fas fa-search"></i> 検索
+    <% end %>
     <%= link_to new_admin_item_path, class: "btn btn-light shadow admin-items-new-button" do %>
       <i class="fas fa-plus"></i> 商品新規登録
     <% end %>
   </div>
+
+  <div class="collapse" id="collapseSearchForm">
+    <div class="collapse-wrapper">
+      <div class="card card-body">
+        <%= search_form_for @q, url: admin_items_path do |f| %>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="inputSearchId">商品ID</label>
+              <%= f.number_field :id_eq, autofocus: true, placeholder: "会員ID", class: "form-control", id: "inputSearchID" %>
+            </div>
+            <div class="form-group col-md-6">
+              <label for="inputSearchName">商品名・商品説明</label>
+              <%= f.search_field :name_or_description_cont, autofocus: true, placeholder: "商品名・商品説明", class: "form-control", id: "inputSearchName" %>
+            </div>
+          </div>
+          <label>価格</label>
+          <div class="form-row">
+            <div class="form-group col-md-5">
+              <%= f.search_field :price_gteq, autofocus: true, class: "form-control", id: "inputSearchPriceGteq" %>
+            </div>
+            <div class="col-md-1 admin-items-search-price-yen">
+              <span>円</span> <span>以上</span>
+            </div>
+            <div class="form-group col-md-5">
+              <%= f.search_field :price_lteq, autofocus: true, class: "form-control", id: "inputSearchPriceLteq" %>
+            </div>
+            <div class="col-md-1 admin-items-search-price-yen">
+              <span>円</span> <span>以下</span>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="inputSearchGenre">ジャンル</label><br>
+              <select name="q[genre_id_eq]" id="inputSearchGenre" class="custom-select">
+                <option value="">選択して下さい</option>
+                <% Genre.all.each do |genre| %>
+                  <% if params[:q].present? && genre.id == params[:q][:genre_id_eq].to_i %>
+                    <option value="<%= genre.id %>" selected><%= genre.name %></option>
+                  <% else %>
+                    <option value="<%= genre.id %>"><%= genre.name %></option>
+                  <% end %>
+                <% end %>
+              </select>
+              <div class="invalid-feedback">選択してください。</div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-12">
+            <label>販売ステータス</label><br>
+              <div class="custom-control custom-radio">
+                <input type="radio" class="custom-control-input" value=1 name="q[sales_status_eq]" id="q_sales_status_eq_1" <%= "checked" if params[:q].present? && params[:q][:sales_status_eq] == "1" %>>
+                <label style="display: inline-block;" for="q_sales_status_eq_1" class="custom-control-label">販売中</label>
+              </div>
+              <div class="custom-control custom-radio">
+                <input type="radio" class="custom-control-input" value=0 name="q[sales_status_eq]" id="q_sales_status_eq_0" <%= "checked" if params[:q].present? && params[:q][:sales_status_eq] == "0" %>>
+                <label style="display: inline-block;" for="q_sales_status_eq_0" class="custom-control-label">販売停止</label>
+              </div>
+              <div class="custom-control custom-radio">
+                <input type="radio" class="custom-control-input" value="" name="q[sales_status_eq]" id="q_sales_status_eq_nil" <%= "checked" if params[:q].blank? || params[:q][:sales_status_eq].blank? %>>
+                <label style="display: inline-block;" for="q_sales_status_eq_nil" class="custom-control-label">どちらでもよい</label>
+              </div>
+            </div>
+          </div>
+          <div class="actions text-center">
+            <%= button_tag type: "submit", class: "btn btn-primary px-3" do %>
+              <i class="fa fa-search"></i> 検索
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
   <table class="table table-striped table-hover">
     <thead>
       <tr>
-        <th scope="col">商品ID</th>
-        <th scope="col">商品名</th>
-        <th scope="col">税抜価格</th>
-        <th scope="col">ジャンル</th>
-        <th scope="col">ステータス</th>
+        <th scope="col"><%= sort_link(@q, :id, "商品ID") %></th>
+        <th scope="col"><%= sort_link(@q, :name, "商品名") %></th>
+        <th scope="col"><%= sort_link(@q, :price, "税抜価格") %></th>
+        <th scope="col"><%= sort_link(@q, :genre_name, "ジャンル") %></th>
+        <th scope="col"><%= sort_link(@q, :sales_status, "ステータス") %></th>
       </tr>
     </thead>
     <tbody>
-      <% @items.each do |item| %>
-        <tr class="clickable-row" data-href="/admin/items/<%= item.id %>">
-          <td>
-            <%= item.id %>
-          </td>
-          <td>
-            <%= item.name %>
-          </td>
-          <td>
-            <%= item.price.to_s(:delimited) %>
-          </td>
-          <td>
-            <%= item.genre.name %>
-          </td>
-          <td>
-            <% if item.on_sale? %>
-              <span class="text-success">販売中</span>
-            <% else %>
-              <span class="text-muted">販売停止中</span>
-            <% end %>
-          </td>
-        </tr>
+      <% if @items.present? %>
+        <% @items.each do |item| %>
+          <tr class="clickable-row" data-href="/admin/items/<%= item.id %>">
+            <td>
+              <%= item.id %>
+            </td>
+            <td>
+              <%= item.name %>
+            </td>
+            <td>
+              <%= item.price.to_s(:delimited) %>
+            </td>
+            <td>
+              <%= item.genre.name %>
+            </td>
+            <td>
+              <% if item.on_sale? %>
+                <span class="text-success">販売中</span>
+              <% else %>
+                <span class="text-muted">販売停止中</span>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      <% else %>
+        <td colspan="5" class="text-center py-3">
+          データがありません
+        </td>
       <% end %>
     </tbody>
   </table>

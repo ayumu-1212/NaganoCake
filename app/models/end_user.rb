@@ -19,4 +19,5 @@ class EndUser < ApplicationRecord
     validates :postal_code
     validates :address
   end
+
 end
