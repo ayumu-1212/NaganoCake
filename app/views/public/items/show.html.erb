@@ -27,9 +27,9 @@
                     <% else %>
                     <input type="number" class="form-control" name="cart_item[amount]" id="cart_item_amount" value="1" style="max-width: 4rem" min="1">
                       <%= f.hidden_field :item_id, value: @item.id %>
-                      <%= link_to new_end_user_session_path, data: { confirm: 'カート追加前にログインをお願いします', cancel: '戻る', commit: 'ログイン画面へ'}, title: 'ログイン確認', class: "btn btn-outline-dark ml-3" do %>
+                      <button type="button" class="btn btn-outline-dark ml-3" data-toggle="modal" data-target="#forLogin">
                         <i class="fas fa-shopping-cart"></i> Add to cart
-                      <% end %>
+                      </button>
                     <% end %>
                   </div>
                 <% end %>
@@ -70,4 +70,6 @@
         </div>
     </div>
 </section>
-<!-- Footer-->
+
+<!--modal-->
+<%= render 'shared/modal_primary', id: "forLogin", title: "ログイン確認", body: "カート追加前にログインをお願いします。", back_name: "戻る", go_name: "ログイン画面へ", go_url: "/customers/sign_in" %>

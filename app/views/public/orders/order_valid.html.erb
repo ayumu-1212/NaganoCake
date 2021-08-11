@@ -95,7 +95,30 @@
       <%= f.hidden_field :shipping_fee, value: shipping_fee %>
       <%= f.hidden_field :request_total_price, value: request_total_price %>
       <%= f.hidden_field :delivery_destination_item, value: params[:order][:delivery_destination_item] %>
-      <%= f.submit "注文を確定する", class: "btn btn-success" %>
+      <% f.submit "注文を確定する", class: "btn btn-success" %>
+      <button type="button" class="btn btn-success" data-toggle="modal" data-target="#orderCreate">
+        注文する
+      </button>
+      <!-- Modal -->
+      <div class="modal fade" id="orderCreate" tabindex="-1" role="dialog" aria-labelledby="orderCreateLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="orderCreateLabel">注文確定確認</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p>こちらで注文を確定しますがよろしいですか？<br>※確定後に入金をお願いいたします。</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">やめる</button>
+              <%= f.submit "注文を確定する", class: "btn btn-success" %>
+            </div>
+          </div>
+        </div>
+      </div>
     <% end %>
   </div>
 </div>
