@@ -28,8 +28,8 @@ class Item < ApplicationRecord
       .order(Arel.sql('genres.name COLLATE "C" ASC'))
   }
 
-  scope :sort_by_user_name_kana_desc, lambda {
-    eager_load(:user)
+  scope :sort_by_genre_name_desc, lambda {
+    eager_load(:genre)
       .order(Arel.sql('genres.name COLLATE "C" DESC'))
   }
 end

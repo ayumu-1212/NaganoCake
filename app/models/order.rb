@@ -26,4 +26,14 @@ class Order < ApplicationRecord
     delivered: 4
   }
 
+  # ransack
+  scope :sort_by_end_user_last_name_asc, lambda {
+    eager_load(:end_user)
+      .order(Arel.sql('end_users.last_name COLLATE "C" ASC'))
+  }
+
+  scope :sort_by_end_user_last_name_desc, lambda {
+    eager_load(:end_user)
+      .order(Arel.sql('end_users.last_name COLLATE "C" DESC'))
+  }
 end

@@ -1,8 +1,9 @@
 class Admin::OrdersController < ApplicationController
   before_action :authenticate_admin!
   def index
+    @q = Order.ransack(params[:q]) # ransack
     if params[:end_user_id].nil?
-      @orders = Order.all.page(params[:page]).per(20)
+      @orders = @q.result.page(params[:page]).per(20) #ransackとkaminari
     else
       end_user = EndUser.find(params[:end_user_id])
       @orders = Order.where(end_user_id: end_user.id).page(params[:page]).per(20)

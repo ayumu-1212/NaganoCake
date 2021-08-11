@@ -315,3 +315,20 @@ footer{
   line-height: 38px;
   font-size: 20px;
 }
+
+// admin/orders#index
+.admin-orders-top-box {
+  display: flex;
+}
+
+.admin-orders-top-button {
+  display: inline-block;
+  margin-left: auto;
+  margin-top: 50px;
+  margin-bottom: 30px;
+}
+
+.admin-orders-top-badges {
+  font-size: 24px;
+  padding: 50px 0 0 10px;
+}
