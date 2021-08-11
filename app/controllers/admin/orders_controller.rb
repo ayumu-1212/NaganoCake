@@ -29,12 +29,17 @@ class Admin::OrdersController < ApplicationController
 
   def update_items
     order_detail = OrderDetail.find(params[:id])
+    @order = order_detail.order
     if order_detail.update(order_detail_params)
+      if order_detail.in_production?
+        @order.update(status: 2)
+      elsif @order.order_details.pluck(:production_status).all? {|i| ["start_not_possible", "production_complete"].include?(i)}
+        @order.update(status: 3)
+      end
       flash[:success] = "製作ステータスを更新しました"
       redirect_to admin_order_path(order_detail.order)
     else
       flash[:danger] = "更新に失敗しました。再度更新してください。"
-      @order = order_detail.order
       @order_details = @order.order_details
       render :show
     end
