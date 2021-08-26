@@ -103,3 +103,6 @@ gem 'ransack'
 
 # ページネーション
 gem 'kaminari'
+
+# .envファイル使用
+gem 'dotenv-rails'
