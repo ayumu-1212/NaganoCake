@@ -1,0 +1,21 @@
+<div class="container">
+  <h2 class="page-title">ジャンル編集</h2>
+  <%= form_with model: @genre, url: admin_genre_path, local: true, :html => {class: "needs-validation", novalidate: true} do |f| %>
+    <div class="form-row admin-genre-new-box">
+      <div class="form-group col-md-2">
+        <label for="inputGenreName">ジャンル名</label>
+      </div>
+      <div class="form-group col-md-4">
+        <%= f.text_field :name, autofocus: true, placeholder: "ジャンル名", required: true, class: "form-control", id: "inputGenreName"%>
+        <div class="invalid-feedback">
+          ジャンル名を入力してください。
+        </div>
+      </div>
+      <div class="form-group col-md-2">
+        <div class="actions">
+          <%= f.submit "変更を保存", class: "btn btn-success" %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

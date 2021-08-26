@@ -1,0 +1,75 @@
+<!-- Product section-->
+<div class="pb-5">
+    <div class="container px-4 px-lg-5 my-5">
+        <h2 class="page-title">商品詳細</h2>
+        <div class="row gx-4 gx-lg-5 align-items-center">
+            <div class="col-md-6">
+              <%= attachment_image_tag @item, :image, fallback: "no-image.png", class: "item-show-image" %>
+            </div>
+            <div class="col-md-6">
+                <h1 class="display-5 fw-bolder"><%= @item.name %></h1>
+                <div class="fs-5 mb-5">
+                    <span>¥ <%= @item.add_tax_price.to_s(:delimited) %> (税込)</span>
+                </div>
+                <p class="lead">
+                  <%= @item.description %>
+                </p>
+                <%= form_with model: @cart_item, url: cart_items_path, local: true do |f| %>
+                  <div class="d-flex">
+                    <% if @item.sold_out? %>
+                      <%= link_to "完売しました", items_path, class: "btn btn-danger disabled px-5" %>
+                    <% elsif end_user_signed_in? %>
+                    <input type="number" class="form-control" name="cart_item[amount]" id="cart_item_amount" value="1" style="max-width: 4rem" min="1">
+                    <%= f.hidden_field :item_id, value: @item.id %>
+                      <%= button_tag type: "submit", class: "btn btn-outline-dark ml-3" do %>
+                        <i class="fas fa-shopping-cart"></i> Add to cart
+                      <% end %>
+                    <% else %>
+                    <input type="number" class="form-control" name="cart_item[amount]" id="cart_item_amount" value="1" style="max-width: 4rem" min="1">
+                      <%= f.hidden_field :item_id, value: @item.id %>
+                      <button type="button" class="btn btn-outline-dark ml-3" data-toggle="modal" data-target="#forLogin">
+                        <i class="fas fa-shopping-cart"></i> Add to cart
+                      </button>
+                    <% end %>
+                  </div>
+                <% end %>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Related items section-->
+<section class="py-5 bg-light">
+    <div class="container px-4 px-lg-5 mt-5">
+        <h2 class="fw-bolder mb-4">他のオススメ</h2>
+        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+          <% @items.each do |item| %>
+            <div class="col mb-5">
+                <div class="card h-100">
+                    <!-- Sale badge-->
+                    <% if item.sold_out? %>
+                      <div class="badge bg-danger text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sold out</div>
+                    <% end %>
+                    <!-- Product image-->
+                    <%= attachment_image_tag item, :image, fallback: "no-image.png" %>
+                    <!-- Product details-->
+                    <div class="card-body p-4">
+                        <div class="text-center">
+                            <!-- Product name-->
+                            <h5 class="fw-bolder"><%= item.name %></h5></h5>
+                            <!-- Product price-->
+                            ¥ <%= item.price.to_s(:delimited) %>
+                        </div>
+                    </div>
+                    <!-- Product actions-->
+                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                        <div class="text-center"><%= link_to "詳細", item_path(item), class: "btn btn-outline-dark" %></div>
+                    </div>
+                </div>
+            </div>
+          <% end %>
+        </div>
+    </div>
+</section>
+
+<!--modal-->
+<%= render 'shared/modal_primary', id: "forLogin", title: "ログイン確認", body: "カート追加前にログインをお願いします。", back_name: "戻る", go_name: "ログイン画面へ", go_url: "/customers/sign_in" %>

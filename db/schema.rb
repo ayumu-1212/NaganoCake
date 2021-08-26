@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_24_065923) do
+ActiveRecord::Schema.define(version: 2021_08_05_155450) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -36,7 +36,7 @@ ActiveRecord::Schema.define(version: 2021_07_24_065923) do
     t.integer "end_user_id"
     t.string "postal_code"
     t.string "address"
-    t.string "name"
+    t.string "label_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -54,9 +54,10 @@ ActiveRecord::Schema.define(version: 2021_07_24_065923) do
     t.string "postal_code"
     t.string "address"
     t.string "phone_number"
-    t.integer "members_status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_end_users_on_deleted_at"
     t.index ["email"], name: "index_end_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_end_users_on_reset_password_token", unique: true
   end
@@ -72,7 +73,7 @@ ActiveRecord::Schema.define(version: 2021_07_24_065923) do
     t.string "name"
     t.text "description"
     t.integer "sales_status"
-    t.integer "tax_excluded_price"
+    t.integer "price"
     t.text "image_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -83,7 +84,7 @@ ActiveRecord::Schema.define(version: 2021_07_24_065923) do
     t.integer "item_id"
     t.integer "including_tax_purchase_price"
     t.integer "amount"
-    t.integer "production_status"
+    t.integer "production_status", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -94,9 +95,9 @@ ActiveRecord::Schema.define(version: 2021_07_24_065923) do
     t.string "postal_code"
     t.string "address"
     t.integer "payment_method"
-    t.integer "status"
+    t.integer "status", default: 0
     t.integer "shipping_fee"
-    t.integer "request_fee"
+    t.integer "request_total_price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

@@ -70,5 +70,39 @@ gem "refile", require: "refile/rails", github: 'manfe/refile'
 # 画像加工用（サイズ調整など）gem
 gem "refile-mini_magick"
 
+# ブートストラップ
 gem 'bootstrap', '~> 4.5'
+
+# jquery
 gem 'jquery-rails'
+
+# 日本語設定
+gem 'rails-i18n'
+
+# 論理削除実装
+gem 'paranoia'
+
+# seed用データサンプル(英)
+gem 'faker'
+
+# seed用データサンプル(和)
+gem "gimei"
+
+# bootstrap風のmodal表示
+gem 'data-confirm-modal'
+
+# pry
+gem 'pry-rails'
+gem 'pry-byebug'
+
+# enumを日本語化
+gem 'enum_help'
+
+# 検索機能
+gem 'ransack'
+
+# ページネーション
+gem 'kaminari'
+
+# .envファイル使用
+gem 'dotenv-rails'

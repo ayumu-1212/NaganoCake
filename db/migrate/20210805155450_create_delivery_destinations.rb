@@ -4,7 +4,7 @@ class CreateDeliveryDestinations < ActiveRecord::Migration[5.2]
       t.integer :end_user_id
       t.string :postal_code
       t.string :address
-      t.string :name
+      t.string :label_name
       t.timestamps
     end
   end

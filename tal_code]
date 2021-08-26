@@ -1,0 +1,27 @@
+
+[1mFrom:[0m /home/ec2-user/environment/NaganoCake/app/controllers/public/orders_controller.rb:20 Public::OrdersController#confirm:
+
+    [1;34m13[0m: [32mdef[0m [1;34mconfirm[0m
+    [1;34m14[0m:   binding.pry
+    [1;34m15[0m:   delivery_destination_item = params[[33m:order[0m][[33m:delivery_destination_item[0m]
+    [1;34m16[0m:   delivery_destination_id = params[[33m:order[0m][[33m:delivery_destination_id[0m]
+    [1;34m17[0m:   [32mcase[0m delivery_destination_item
+    [1;34m18[0m:   [32mwhen[0m [31m[1;31m"[0m[31mmy_address[1;31m"[0m[31m[0m [32mthen[0m
+    [1;34m19[0m:     params[[33m:order[0m][[33m:postal_code[0m] = current_end_user.postal_code
+ => [1;34m20[0m:     params[[33m:order[0m][[33m:address[0m] = current_end_user.address
+    [1;34m21[0m:     params[[33m:order[0m][[33m:label_name[0m] = current_end_user.last_name + current_end_user.first_name
+    [1;34m22[0m:   [32mwhen[0m [31m[1;31m"[0m[31mregistered_address[1;31m"[0m[31m[0m [32mthen[0m
+    [1;34m23[0m:     [32mif[0m delivery_destination_id.blank?
+    [1;34m24[0m:       render [33m:new[0m
+    [1;34m25[0m:     [32mend[0m
+    [1;34m26[0m:     delivery_destination = [1;34;4mDeliveryDestnation[0m.find(delivery_destination_id)
+    [1;34m27[0m:     params[[33m:order[0m][[33m:postal_code[0m] = delivery_destination.postal_code
+    [1;34m28[0m:     params[[33m:order[0m][[33m:address[0m] = delivery_destination.address
+    [1;34m29[0m:     params[[33m:order[0m][[33m:label_name[0m] = delivery_destination.label_name
+    [1;34m30[0m:   [32mwhen[0m [31m[1;31m"[0m[31mnew_address[1;31m"[0m[31m[0m [32mthen[0m
+    [1;34m31[0m:     [32mif[0m params[[33m:order[0m][[33m:postal_code[0m].blank? || params[[33m:order[0m][[33m:address[0m].blank? || params[[33m:order[0m][[33m:label_name[0m].blank?
+    [1;34m32[0m:       render [33m:new[0m
+    [1;34m33[0m:     [32mend[0m
+    [1;34m34[0m:   [32mend[0m
+    [1;34m35[0m: [32mend[0m
+

@@ -1,0 +1,75 @@
+<div class="container">
+  <h2 class="page-title">配送先登録/一覧</h2>
+  <div class="new-address-form-box">
+    <%= form_with model: @delivery_destination, url: addresses_path, local: true, :html => {class: "needs-validation", novalidate: true}  do |f| %>
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="inputPostalCode">郵便番号(ハイフンなし)</label>
+          <%= f.text_field :postal_code, autofocus: true, autocomplete: "postal-code", placeholder: "1234567", required: true, class: "form-control", id: "inputPostalCode" %>
+          <div class="invalid-feedback">
+            郵便番号を入力してください。
+          </div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-12">
+          <label for="inputAddress">住所</label>
+          <%= f.text_field :address, autofocus: true, autocomplete: "street-address", placeholder: "住所", required: true, class: "form-control", id: "inputAddress" %>
+          <div class="invalid-feedback">
+            住所を入力してください。
+          </div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="inputLabelName">宛名</label>
+          <%= f.text_field :label_name, autofocus: true, autocomplete: "name", placeholder: "宛名", required: true, class: "form-control", id: "inputLabelName" %>
+          <div class="invalid-feedback">
+            宛名を入力してください。
+          </div>
+        </div>
+      </div>
+      <div class="actions text-center mb-5 mt-4">
+        <%= f.submit "新規登録", class: "btn btn-success px-3" %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="addresses-box">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th scope="col">郵便番号</th>
+          <th scope="col">住所</th>
+          <th scope="col">宛名</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if @delivery_destinations.present? %>
+          <% @delivery_destinations.each do |delivery_destination| %>
+            <tr>
+              <td class="align-middle">
+                <%= delivery_destination.postal_code %>
+              </td>
+              <td class="align-middle">
+                <%= delivery_destination.address %>
+              </td>
+              <td class="align-middle">
+                <%= delivery_destination.label_name %>
+              </td>
+              <td class="align-middle text-center">
+                <%= link_to "編集する", edit_address_path(delivery_destination.id), class: "btn btn-success mr-3" %>
+                <%= link_to "削除する", address_path(delivery_destination.id), data: { confirm: '本当に削除しますか？', cancel: 'やめる', commit: '削除'}, title: '削除確認', method: :delete, class: "btn btn-danger" %>
+              </td>
+            </tr>
+          <% end %>
+        <% else %>
+          <td colspan="4" class="text-center py-3">
+            登録されていません。
+          </td>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

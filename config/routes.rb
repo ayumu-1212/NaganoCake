@@ -1,17 +1,5 @@
 Rails.application.routes.draw do
 
-  devise_for(
-    :end_users,
-    path: 'customers',
-    module: 'public/customers'
-  )
-
-  devise_for(
-    :admins,
-    path: 'admin',
-    module: 'admin/admins'
-  )
-
   scope module: :public do
 
     resources :items, only: [:index, :show]
@@ -33,25 +21,39 @@ Rails.application.routes.draw do
     resources :orders, only: [:new, :create, :index, :show] do
       collection do
         get :complete
+        post :order_valid
         get :confirm
+        post :back
+
       end
     end
 
-    resources :address, only: [:index, :edit, :create, :update, :destroy]
+    resources :addresses, only: [:index, :edit, :create, :update, :destroy]
   end
 
   namespace :admin do
     resources :items, only: [:index, :new, :create, :show, :edit, :update]
 
-    resources :genre, only: [:index, :create, :edit, :update]
+    resources :genres, only: [:index, :create, :edit, :update]
 
     resources :customers, only: [:index, :show, :edit, :update]
 
-    resources :orders, only: [:show, :update]
+    resources :orders, only: [:show, :update, :index]
   end
 
-  get "admin/orders/details/:id" => "admin/orders#update_items", as: "admin_order_details"
-  get "admin" => "admin/homes#top", as: "admin_home_top"
+    devise_for(
+    :end_users,
+    path: 'customers',
+    module: 'public/customers'
+  )
+
+  devise_for(
+    :admins,
+    path: 'admin',
+    module: 'admin/admins'
+  )
+
+  patch "admin/orders/details/:id" => "admin/orders#update_items", as: "admin_order_details"
   get "about" => "public/homes#about", as: "home_about"
   get "/" => "public/homes#top", as: "root"
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

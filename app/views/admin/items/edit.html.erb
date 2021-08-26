@@ -1,0 +1,99 @@
+<div class="container">
+  <h2 class="page-title">商品編集</h2>
+
+  <%= render 'shared/error_message', model: @item %>
+
+  <%= form_with model: @item, url: admin_item_path(@item), local: true, :html => {class: "needs-validation", novalidate: true}  do |f| %>
+
+
+    <div class="form-row items-new-form-row">
+      <p class="p-convert-label">商品画像</p><br>
+      <div class="custom-file col-md-12">
+        <%= f.attachment_field :image, id: "inputItemImage", class: "custom-file-input" %>
+        <label for="inputItemImage" class="custom-file-label" data-browse="ファイルを選択">画像を選んでください。</label><br>
+      </div>
+    </div>
+
+
+    <div class="form-row items-new-form-row">
+      <div class="form-group col-md-12">
+        <label for="inputItemName">商品名</label>
+        <%= f.text_field :name, autofocus: true, placeholder: "商品名", required: true, class: "form-control", id: "inputItemName" %>
+        <div class="invalid-feedback">
+         商品名を入力してください。
+        </div>
+      </div>
+    </div>
+    <div class="form-row items-new-form-row">
+      <div class="form-group col-md-12">
+        <label for="inputItemDescription">商品説明</label>
+        <%= f.text_area :description, rows: "6", autofocus: true, placeholder: "ここに説明文を記述します。", class: "form-control", id: "inputItemDescription" %>
+      </div>
+    </div>
+
+
+    <!-- bootstrapのvalidationをかけるためにhtml記述(動作に影響なし) -->
+    <!-- もしrailsの書き方ができる方法があるなら修正 -->
+    <div class="form-row items-new-form-row">
+      <div class="form-group col-md-12">
+        <label for="inputItemName">ジャンル</label><br>
+        <!-- f.collection_select :genre_id, Genre.all, :id, :name, autofocus: true, include_blank: "選択して下さい", required: true, id: "inputItemGenre" -->
+        <select name="item[genre_id]" id="item_genre_id" class="custom-select" required>
+          <% Genre.all.each do |genre| %>
+            <% if genre.id == @item.genre_id %>
+              <option value="<%= genre.id %>" selected><%= genre.name %></option>
+            <% else %>
+              <option value="<%= genre.id %>"><%= genre.name %></option>
+            <% end %>
+          <% end %>
+        </select>
+        <div class="invalid-feedback">選択してください。</div>
+      </div>
+    </div>
+
+
+
+    <div class="form-row items-new-form-row">
+      <div class="form-group col-md-12">
+        <label for="inputItemPrice">税抜価格</label><br>
+        <%= f.number_field :price, autofocus: true, required: true, placeholder: "1000", class: "form-control form-inline-block", id: "inputItemPrice" %> 円
+        <div class="invalid-feedback">
+         税抜価格を入力してください。
+        </div>
+      </div>
+    </div>
+
+    <!-- bootstrapのvalidationをかけるためにhtml記述(動作に影響なし) -->
+    <!-- もしrailsの書き方ができる方法があるなら修正 -->
+    <div class="form-row items-new-form-row">
+      <div class="form-group col-md-12">
+      <label>販売ステータス</label><br>
+        <div class="custom-control custom-radio">
+          <!-- f.radio_button :sales_status, :sold_out -->
+          <% if @item.sold_out? %>
+            <input type="radio" class="custom-control-input" value="sold_out" name="item[sales_status]" id="item_sales_status_sold_out" required checked>
+          <% else %>
+            <input type="radio" class="custom-control-input" value="sold_out" name="item[sales_status]" id="item_sales_status_sold_out" required>
+          <% end %>
+          <!-- f.label :sales_status, "sold_out", {value: :sold_out, style: "display: inline-block;"} -->
+          <label style="display: inline-block;" for="item_sales_status_sold_out" class="custom-control-label">売切れ</label>
+        </div>
+        <div class="custom-control custom-radio mb-3">
+          <!-- f.radio_button :sales_status, :on_sale -->
+          <% if @item.on_sale? %>
+            <input type="radio" class="custom-control-input" value="on_sale" name="item[sales_status]" id="item_sales_status_on_sale" required checked>
+          <% else %>
+            <input type="radio" class="custom-control-input" value="on_sale" name="item[sales_status]" id="item_sales_status_on_sale" required>
+          <% end %>
+          <!-- f.label :sales_status, "on_sale", {value: :on_sale, style: "display: inline-block;"} -->
+          <label style="display: inline-block;" for="item_sales_status_on_sale" class="custom-control-label">販売中</label>
+          <div class="invalid-feedback">選択してください</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="actions text-center mb-5">
+      <%= f.submit "変更を保存", class: "btn btn-success px-3" %>
+    </div>
+  <% end %>
+</div>

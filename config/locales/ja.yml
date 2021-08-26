@@ -1,0 +1,30 @@
+ja:
+  enums:
+    item:
+      sales_status:
+        sold_out: '売切れ'
+        on_sale: '販売中'
+    order:
+      payment_method:
+        credit_card: 'クレジットカード'
+        bank_transfer: '銀行振込'
+      status:
+        payment_waiting: '入金待ち'
+        payment_confirmation: '入金確認'
+        in_production: '製作中'
+        preparing_delivery: '発送準備中'
+        delivered: '発送済み'
+    order_detail:
+      production_status:
+        start_not_possible: '着手不可'
+        before_production: '製作待ち'
+        in_production: '製作中'
+        production_complete: '製作完了'
+  views:
+    pagination:
+    pagination:
+      first: <i class="fas fa-angle-double-left"></i>
+      last: <i class="fas fa-angle-double-right"></i>
+      previous: <i class="fas fa-angle-left"></i>
+      next: <i class="fas fa-angle-right"></i>
+      truncate: "..."

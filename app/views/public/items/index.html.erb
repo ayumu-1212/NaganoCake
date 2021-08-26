@@ -1,0 +1,172 @@
+<div class="container ">
+  <div class="row contain-sidebar">
+    <div class="col-lg-3 public-items-sidebar">
+      <%= search_form_for @q, url: items_path do |f| %>
+        <div class="form-row">
+          <div class="form-group col-lg-12">
+            <label for="inputSearchName">商品名・商品説明</label>
+            <%= f.search_field :name_or_description_cont, autofocus: true, placeholder: "商品名・商品説明", class: "form-control", id: "inputSearchName" %>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-lg-12">
+            <label for="inputSearchGenre">ジャンル</label><br>
+            <select name="q[genre_id_eq]" id="inputSearchGenre" class="custom-select">
+              <option value="">選択して下さい</option>
+              <% Genre.all.each do |genre| %>
+                <% if params[:q].present? && genre.id == params[:q][:genre_id_eq].to_i %>
+                  <option value="<%= genre.id %>" selected><%= genre.name %></option>
+                <% else %>
+                  <option value="<%= genre.id %>"><%= genre.name %></option>
+                <% end %>
+              <% end %>
+            </select>
+            <div class="invalid-feedback">選択してください。</div>
+          </div>
+        </div>
+        <label>価格</label>
+        <div class="form-row">
+          <div class="form-group col-lg-5">
+            <%= f.search_field :price_gteq, autofocus: true, class: "form-control", id: "inputSearchPriceGteq" %>
+          </div>
+          <div class="col-lg-1 admin-items-search-price-yen">
+            <span>～</span>
+          </div>
+          <div class="form-group col-lg-5">
+            <%= f.search_field :price_lteq, autofocus: true, class: "form-control", id: "inputSearchPriceLteq" %>
+          </div>
+          <div class="col-lg-1 admin-items-search-price-yen">
+            <span>円</span>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-lg-12">
+          <label>販売ステータス</label><br>
+            <div class="custom-control custom-radio">
+              <input type="radio" class="custom-control-input" value=1 name="q[sales_status_eq]" id="q_sales_status_eq_1" <%= "checked" if params[:q].present? && params[:q][:sales_status_eq] == "1" %>>
+              <label style="display: inline-block;" for="q_sales_status_eq_1" class="custom-control-label">販売中のみ</label>
+            </div>
+            <div class="custom-control custom-radio">
+              <input type="radio" class="custom-control-input" value="" name="q[sales_status_eq]" id="q_sales_status_eq_nil" <%= "checked" if params[:q].blank? || params[:q][:sales_status_eq].blank? %>>
+              <label style="display: inline-block;" for="q_sales_status_eq_nil" class="custom-control-label">売切れも含む</label>
+            </div>
+          </div>
+        </div>
+        <div class="actions text-center">
+          <%= button_tag type: "submit", class: "btn btn-primary px-3" do %>
+            <i class="fa fa-search"></i> 検索
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+    <div class="col-lg-9">
+      <div class="public-items-top-box">
+        <h2 class="public-top-title page-title">商品一覧</h2>
+        <div class="public-items-top-badges">
+          <% if params[:q].present? %>
+            <span class="badge badge-secondary bg-color-a3a6a9"><%= "キーワード：#{params[:q][:name_or_description_cont]}" if params[:q][:name_or_description_cont].present? %></span>
+            <span class="badge badge-secondary bg-color-a3a6a9"><%= "#{params[:q][:price_gteq]}円以上" if params[:q][:price_gteq].present? %></span>
+            <span class="badge badge-secondary bg-color-a3a6a9"><%= "#{params[:q][:price_lteq]}円以下" if params[:q][:price_lteq].present? %></span>
+            <span class="badge badge-secondary bg-color-a3a6a9"><%= "ジャンル：#{Genre.find(params[:q][:genre_id_eq]).name}" if params[:q][:genre_id_eq].present? %></span>
+            <span class="badge badge-secondary bg-color-a3a6a9"><%= "販売中のみ" if params[:q][:sales_status_eq] == "1" %></span>
+          <% end %>
+        </div>
+        <%= link_to "#collapseSearchForm", 'data-toggle': :"collapse", 'aria-expanded': :"false", 'aria-controls': :"collapseSearchForm", class: "btn btn-light shadow public-items-search-button" do %>
+          <i class="fas fa-search"></i> 検索
+        <% end %>
+      </div>
+      <div class="collapse" id="collapseSearchForm">
+        <div class="collapse-wrapper">
+          <div class="card card-body">
+            <%= search_form_for @q, url: items_path do |f| %>
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label for="inputSearchName">商品名・商品説明</label>
+                  <%= f.search_field :name_or_description_cont, autofocus: true, placeholder: "商品名・商品説明", class: "form-control", id: "inputSearchName" %>
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="inputSearchGenre">ジャンル</label><br>
+                  <select name="q[genre_id_eq]" id="inputSearchGenre" class="custom-select">
+                    <option value="">選択して下さい</option>
+                    <% Genre.all.each do |genre| %>
+                      <% if params[:q].present? && genre.id == params[:q][:genre_id_eq].to_i %>
+                        <option value="<%= genre.id %>" selected><%= genre.name %></option>
+                      <% else %>
+                        <option value="<%= genre.id %>"><%= genre.name %></option>
+                      <% end %>
+                    <% end %>
+                  </select>
+                  <div class="invalid-feedback">選択してください。</div>
+                </div>
+              </div>
+              <label>価格</label>
+              <div class="form-row">
+                <div class="form-group col-md-5">
+                  <%= f.search_field :price_gteq, autofocus: true, class: "form-control", id: "inputSearchPriceGteq" %>
+                </div>
+                <div class="col-md-1 admin-items-search-price-yen">
+                  <span>円</span> <span>以上</span>
+                </div>
+                <div class="form-group col-md-5">
+                  <%= f.search_field :price_lteq, autofocus: true, class: "form-control", id: "inputSearchPriceLteq" %>
+                </div>
+                <div class="col-md-1 admin-items-search-price-yen">
+                  <span>円</span> <span>以下</span>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-12">
+                <label>販売ステータス</label><br>
+                  <div class="custom-control custom-radio">
+                    <input type="radio" class="custom-control-input" value=1 name="q[sales_status_eq]" id="q_sales_status_eq_1" <%= "checked" if params[:q].present? && params[:q][:sales_status_eq] == "1" %>>
+                    <label style="display: inline-block;" for="q_sales_status_eq_1" class="custom-control-label">販売中のみ</label>
+                  </div>
+                  <div class="custom-control custom-radio">
+                    <input type="radio" class="custom-control-input" value="" name="q[sales_status_eq]" id="q_sales_status_eq_nil" <%= "checked" if params[:q].blank? || params[:q][:sales_status_eq].blank? %>>
+                    <label style="display: inline-block;" for="q_sales_status_eq_nil" class="custom-control-label">売切れも含む</label>
+                  </div>
+                </div>
+              </div>
+              <div class="actions text-center">
+                <%= button_tag type: "submit", class: "btn btn-primary px-3" do %>
+                  <i class="fa fa-search"></i> 検索
+                <% end %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+        <% if @items.present? %>
+          <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-lg-3 row-cols-xl-4 justify-content-center">
+            <% @items.each do |item| %>
+              <div class="col mb-5">
+                  <div class="card h-100">
+                      <% if item.sold_out? %>
+                        <div class="badge bg-danger text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sold out</div>
+                      <% end %>
+                      <!-- Product image-->
+                      <%= attachment_image_tag item, :image, fallback: "no-image.png" %>
+                      <!-- Product details-->
+                      <div class="card-body p-4">
+                          <div class="text-center">
+                              <!-- Product name-->
+                              <h5 class="fw-bolder"><%= item.name %></h5></h5>
+                              <!-- Product price-->
+                              ¥ <%= item.price.to_s(:delimited) %>
+                          </div>
+                      </div>
+                      <!-- Product actions-->
+                      <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                          <div class="text-center"><%= link_to "詳細", item_path(item), class: "btn btn-outline-dark" %></div>
+                      </div>
+                  </div>
+              </div>
+            <% end %>
+          </div>
+        <% else %>
+          <p class="text-muted mt-5 h4 text-center">該当する商品がありません。</p>
+        <% end %>
+      <%= paginate @items %>
+    </div>
+  </div>
+</div>

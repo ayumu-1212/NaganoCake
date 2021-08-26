@@ -1,0 +1,120 @@
+<nav class="navbar navbar-expand-lg navbar-light fixed-top transparent_header" id="mainNav">
+    <div class="container px-4 px-lg-5">
+        <% if admin_signed_in? %>
+            <a class="navbar-brand" href="/admin/orders">
+                <%= image_tag "logo-black-line.png", class: "header-logo-black" %>
+            </a>
+        <% else %>
+            <a class="navbar-brand" href="/">
+                <%= image_tag "logo-black-line.png", class: "header-logo-black" %>
+            </a>
+        <% end %>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportContent" aria-controls="navbarSupportContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportContent">
+
+            <ul class="navbar-nav mr-auto"></ul>
+            <% if end_user_signed_in? %>
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                    <li class="nav-item">
+                        <%= link_to "マイページ", mypage_customers_path, class: "nav-link" %>
+                    </li>
+                    <li class="nav-item">
+                        <%= link_to "商品一覧", items_path, class: "nav-link" %>
+                    </li>
+                    <li class="nav-item">
+                        <%= link_to "カート", cart_items_path, class: "nav-link" %>
+                    </li>
+                    <li class="nav-item">
+                        <%= link_to "ログアウト", destroy_end_user_session_path, method: :delete, class: "nav-link" %>
+                    </li>
+                </ul>
+            <% elsif admin_signed_in? %>
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                    <li class="nav-item">
+                        <%= link_to "商品一覧", admin_items_path, class: "nav-link" %>
+                    </li>
+                    <li class="nav-item">
+                        <%= link_to "会員一覧", admin_customers_path, class: "nav-link" %>
+                    </li>
+                    <li class="nav-item">
+                        <%= link_to "注文履歴一覧", admin_orders_path, class: "nav-link" %>
+                    </li>
+                    <li class="nav-item">
+                        <%= link_to "ジャンル一覧", admin_genres_path, class: "nav-link" %>
+                    </li>
+                    <li class="nav-item">
+                        <%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class: "nav-link" %>
+                    </li>
+                </ul>
+            <% else %>
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                    <li class="nav-item">
+                        <%= link_to "About", home_about_path, class: "nav-link" %>
+                    </li>
+                    <li class="nav-item">
+                        <%= link_to "商品一覧", items_path, class: "nav-link" %>
+                    </li>
+                    <li class="nav-item">
+                        <%= link_to "新規登録", new_end_user_registration_path, class: "nav-link" %>
+                    </li>
+                    <li class="nav-item">
+                        <%= link_to "ログイン", new_end_user_session_path, class: "nav-link" %>
+                    </li>
+                </ul>
+            <% end %>
+        </div>
+    </div>
+</nav>
+<!-- Header-->
+<header class="nagano-backimage py-5">
+    <div class="container px-4 px-lg-5 my-5">
+    <% flash.each do |key, value| %>
+      <div class="container top-flash-message-bar">
+        <p class="alert alert-<%= key %>" role="alert">
+          <%= value %>
+        </p>
+      </div>
+    <% end %>
+        <div class="text-center text-white">
+            <%= image_tag 'logo-white.png', class: "top-logo" %>
+            <p class="lead fw-normal text-white-100 mb-0">
+                長野の山奥でケーキを作っています。<br>
+                自然の恵みをふんだんに使ったケーキです。
+                是非お試しあれ。
+            </p>
+        </div>
+    </div>
+</header>
+<!-- Section-->
+<section class="py-5">
+    <div class="container px-4 px-lg-5 mt-5">
+        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+            <% @items.each do |item| %>
+              <div class="col mb-5">
+                  <div class="card h-100">
+                      <% if item.sold_out? %>
+                        <div class="badge bg-danger text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sold out</div>
+                      <% end %>
+                      <!-- Product image-->
+                      <%= attachment_image_tag item, :image, fallback: "no-image.png" %>
+                      <!-- Product details-->
+                      <div class="card-body p-4">
+                          <div class="text-center">
+                              <!-- Product name-->
+                              <h5 class="fw-bolder"><%= item.name %></h5></h5>
+                              <!-- Product price-->
+                              ¥ <%= item.price.to_s(:delimited) %>
+                          </div>
+                      </div>
+                      <!-- Product actions-->
+                      <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                          <div class="text-center"><%= link_to "詳細", item_path(item), class: "btn btn-outline-dark" %></div>
+                      </div>
+                  </div>
+              </div>
+            <% end %>
+        </div>
+    </div>
+</section>

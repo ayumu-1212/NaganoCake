@@ -1,0 +1,82 @@
+<div class="container">
+  <h2 class="customers-edit-title page-title">会員情報編集</h2>
+
+  <%= render 'shared/error_message', model: @end_user %>
+
+  <%= form_with model: @end_user, url: customers_path(@end_user), local: true, :html => {class: "needs-validation", novalidate: true}  do |f| %>
+
+
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="inputLastName">姓</label>
+        <%= f.text_field :last_name, autofocus: true, autocomplete: "family-name", placeholder: "姓", required: true, class: "form-control", id: "inputLastName" %>
+        <div class="invalid-feedback">
+          姓を入力してください。
+        </div>
+      </div>
+      <div class="form-group col-md-6">
+        <label for="inputFirstName">名</label>
+        <%= f.text_field :first_name, autofocus: true, autocomplete: "given-name", placeholder: "名", required: true, class: "form-control", id: "inputFirstName" %>
+        <div class="invalid-feedback">
+          名を入力してください。
+        </div>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="inputLastNameKana">セイ</label>
+        <%= f.text_field :last_name_kana, autofocus: true, autocomplete: "family-name", placeholder: "セイ", required: true, class: "form-control", id: "inputLastNameKana" %>
+        <div class="invalid-feedback">
+          カタカナで姓を入力してください。
+        </div>
+      </div>
+      <div class="form-group col-md-6">
+        <label for="inputFirstNameKana">メイ</label>
+        <%= f.text_field :first_name_kana, autofocus: true, autocomplete: "given-name", placeholder: "メイ", required: true, class: "form-control", id: "inputFirstNameKana" %>
+        <div class="invalid-feedback">
+          カタカナで名を入力してください。
+        </div>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="inputPostalCode">郵便番号(ハイフンなし)</label>
+        <%= f.text_field :postal_code, autofocus: true, autocomplete: "postal-code", placeholder: "1234567", required: true, class: "form-control", id: "inputPostalCode" %>
+        <div class="invalid-feedback">
+          郵便番号を入力してください。
+        </div>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-12">
+        <label for="inputAddress">住所</label>
+        <%= f.text_field :address, autofocus: true, autocomplete: "street-address", placeholder: "住所", required: true, class: "form-control", id: "inputAddress" %>
+        <div class="invalid-feedback">
+          住所を入力してください。
+        </div>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="inputEmail">メールアドレス</label>
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "Email", required: true, class: "form-control", id: "inputEmail" %>
+        <div class="invalid-feedback">
+          メールアドレスを入力してください。
+        </div>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="inputPhoneNumber">電話番号(ハイフンなし)</label>
+        <%= f.text_field :phone_number, autofocus: true, autocomplete: "tel-national", placeholder: "電話番号", required: true, class: "form-control", id: "inputPhoneNumber" %>
+        <div class="invalid-feedback">
+          電話番号を入力してください。
+        </div>
+      </div>
+    </div>
+    <div class="actions text-center my-5">
+      <%= f.submit "編集内容を保存", class: "btn btn-success px-3" %>
+      <%= link_to "退会する", unsubscribe_customers_path, class: "btn btn-danger ml-3" %>
+    </div>
+  <% end %>
+</div>

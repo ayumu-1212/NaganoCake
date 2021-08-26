@@ -1,0 +1,50 @@
+<div class="container">
+  <h2 class="customers-mypage-title page-title">マイページ</h2>
+  <div class="mypage-row">
+    <table class="table table-bordered">
+      <tbody>
+        <tr>
+          <th scope="row">名前</th>
+          <td>
+            <%= current_end_user.last_name + current_end_user.first_name %>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">カナ</th>
+          <td>
+            <%= current_end_user.last_name_kana + current_end_user.first_name_kana %>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">郵便番号</th>
+          <td>
+            <%= current_end_user.postal_code %>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">住所</th>
+          <td>
+            <%= current_end_user.address %>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">電話番号</th>
+          <td>
+            <%= current_end_user.phone_number %>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">メールアドレス</th></th>
+          <td>
+            <%= current_end_user.email %>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="mypage-row text-center mt-5">
+    <%= link_to "会員情報を編集する", edit_customers_path, class: "btn btn-success" %>
+    <%= link_to "登録配送先を見る", addresses_path, class: "btn btn-primary ml-5" %>
+    <%= link_to "注文履歴を見る", orders_path, class: "btn btn-primary ml-5" %>
+  </div>
+</div>

@@ -1,0 +1,121 @@
+<div class="container">
+  <h2 class="page-title">注文情報入力</h2>
+
+  <% if @error_messages.present? %>
+    <div id="error_explanation" style="width: 100%">
+      <h2><i class="fa fa-flag fa-2x pull-left"></i> 正しく入力されていない箇所があります。以下をご確認の上、もう一度ご入力ください。</h2>
+      <ul class="fa-ul">
+        <% @error_messages.each do |message| %>
+          <li><i class="fa-li fa fa-star"></i> <%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= form_with model: @order, url: order_valid_orders_path, method: :post, local: true do |f| %>
+
+      <div class="form-row orders-new-form-row">
+        <div class="form-group col-md-12">
+        <label>支払方法</label><br>
+          <div class="custom-control custom-radio">
+            <input type="radio" class="custom-control-input" value="credit_card" name="order[payment_method]" id="order_payment_method_credit_card" <%= "checked" if params[:order].blank? || params[:order][:payment_method] == "credit_card" %>>
+            <label style="display: inline-block;" for="order_payment_method_credit_card" class="custom-control-label">クレジットカード</label>
+          </div>
+          <div class="custom-control custom-radio mb-3">
+            <input type="radio" class="custom-control-input" value="bank_transfer" name="order[payment_method]" id="order_payment_method_bank_transfer" <%= "checked" if params[:order] && params[:order][:payment_method] == "bank_transfer" %>>
+            <label style="display: inline-block;" for="order_payment_method_bank_transfer" class="custom-control-label">銀行振込</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row orders-new-form-row">
+        <div class="form-group col-md-12">
+        <label>お届け先</label><br>
+
+          <div class="custom-control custom-radio">
+            <input type="radio" class="custom-control-input" value="my_address" name="order[delivery_destination_item]" id="order_delivery_destination_item_my_address" <%= "checked" if params[:order].blank? || params[:order][:delivery_destination_item] == "my_address" %>>
+            <label style="display: inline-block;" for="order_delivery_destination_item_my_address" class="custom-control-label">ご自身の住所</label>
+            <p>〒 <%= current_end_user.postal_code %> <%= current_end_user.address %><br><%= current_end_user.last_name + current_end_user.first_name %></p>
+          </div>
+
+          <div class="custom-control custom-radio mb-3">
+            <input type="radio" class="custom-control-input" value="registered_address" name="order[delivery_destination_item]" id="order_delivery_destination_item_registered_address" <%= "checked" if params[:order] && params[:order][:delivery_destination_item] == "registered_address" %>>
+            <label style="display: inline-block;" for="order_delivery_destination_item_registered_address" class="custom-control-label">登録済住所から選択</label>
+          </div>
+
+          <div class="form-row items-new-form-row ml-5">
+            <div class="form-group col-md-12">
+              <select name="order[delivery_destination_id]" id="order_delivery_destination_id" class="custom-select">
+                <% if  current_end_user.delivery_destinations.blank? %>
+                  <option value="nothing">登録されている住所がありません</option>
+                <% else %>
+                  <option value="noselect">選択して下さい</option>
+                  <% current_end_user.delivery_destinations.each do |delivery_destination| %>
+                    <% if params[:order] && delivery_destination.id == params[:order][:delivery_destination_id].to_i %>
+                      <option selected value="<%= delivery_destination.id %>">〒 <%= delivery_destination.postal_code %> <%= delivery_destination.address %> <%= delivery_destination.label_name %></option>
+                    <% else %>
+                      <option value="<%= delivery_destination.id %>">〒 <%= delivery_destination.postal_code %> <%= delivery_destination.address %> <%= delivery_destination.label_name %></option>
+                    <% end %>
+                  <% end %>
+                <% end %>
+              </select>
+              <div class="invalid-feedback">選択してください。</div>
+            </div>
+          </div>
+
+          <div class="custom-control custom-radio mb-3">
+            <input type="radio" class="custom-control-input" value="new_address" name="order[delivery_destination_item]" id="order_delivery_destination_item_new_address" <%= "checked" if params[:order] && params[:order][:delivery_destination_item] == "new_address" %>>
+            <label style="display: inline-block;" for="order_delivery_destination_item_new_address" class="custom-control-label">新しいお届け先</label>
+          </div>
+
+          <div class="ml-5">
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="inputPostalCode">郵便番号(ハイフンなし)</label>
+                <%= f.text_field :postal_code, autocomplete: "postal-code", placeholder: "1234567", class: "form-control", id: "inputPostalCode" %>
+                <div class="invalid-feedback">
+                  郵便番号を入力してください。
+                </div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-12">
+                <label for="inputAddress">住所</label>
+                <%= f.text_field :address, autocomplete: "street-address", placeholder: "住所", class: "form-control", id: "inputAddress" %>
+                <div class="invalid-feedback">
+                  住所を入力してください。
+                </div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="inputLabelName">宛名</label>
+                <%= f.text_field :label_name, autocomplete: "name", placeholder: "山田太郎", class: "form-control", id: "inputLabelName" %>
+                <div class="invalid-feedback">
+                  宛名を入力してください。
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <div class="actions">
+      <%= f.submit "確認画面へ進む", class: "btn btn-primary" %>
+    </div>
+  <% end %>
+</div>
+
+<!--newにURLを変更-->
+<script>
+  function convertToNewUrl(url) {
+    let path = location.pathname;
+    let pattern = /^.*\/new.*$/
+
+    // URLが正しければ変更は不要
+    if(path.match(pattern)) return;
+
+    // URLを変更
+    history.replaceState('', '', `${ url }`)
+  }
+  window.onload = convertToNewUrl("/orders/new");
+</script>
