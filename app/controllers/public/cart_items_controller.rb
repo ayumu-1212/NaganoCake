@@ -32,7 +32,6 @@ class Public::CartItemsController < ApplicationController
   end
 
   def create
-    binding.pry
     if @cart_item = CartItem.find_by(end_user_id: current_end_user.id, item_id: params[:cart_item][:item_id])
       @cart_item.amount += params[:cart_item][:amount].to_i
     else
