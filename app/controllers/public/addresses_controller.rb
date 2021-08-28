@@ -13,7 +13,10 @@ class Public::AddressesController < ApplicationController
       flash[:success] = "配送先を登録しました"
       redirect_to addresses_path
     else
-      @delivery_destinations = current_end_user.delivery_destination
+      @delivery_destinations = current_end_user.delivery_destinations
+      if @delivery_destination.errors.messages[:postal_code][0] == "は数値で入力してください"
+        flash[:danger] = "郵便番号はハイフンなしの半角数字のみで記述してください"
+      end
       render :index
     end
   end
@@ -28,6 +31,9 @@ class Public::AddressesController < ApplicationController
       flash[:success] = "配送先を更新しました"
       redirect_to addresses_path
     else
+      if @delivery_destination.errors.messages[:postal_code][0] == "は数値で入力してください"
+        flash[:danger] = "郵便番号はハイフンなしの半角数字のみで記述してください"
+      end
       render :edit
     end
   end
@@ -42,7 +48,7 @@ class Public::AddressesController < ApplicationController
   private
   def identity_verification
     delivery_destination = DeliveryDestination.find(params[:id])
-    if delivery_destination.end_user_id = current_end_user.id
+    if delivery_destination.end_user_id != current_end_user.id
       flash[:danger] = "アクセスできません"
       redirect_to mypage_customers_path
     end

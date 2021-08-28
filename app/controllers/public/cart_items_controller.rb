@@ -50,7 +50,7 @@ class Public::CartItemsController < ApplicationController
   private
   def identity_verification
     cart_item = CartItem.find(params[:id])
-    if cart_item.end_user_id = current_end_user.id
+    if cart_item.end_user_id != current_end_user.id
       flash[:danger] = "アクセスできません"
       redirect_to mypage_customers_path
     end

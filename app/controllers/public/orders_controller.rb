@@ -117,7 +117,7 @@ class Public::OrdersController < ApplicationController
   private
   def identity_verification
     order = Order.find(params[:id])
-    if order.end_user_id = current_end_user.id
+    if order.end_user_id != current_end_user.id
       flash[:danger] = "アクセスできません"
       redirect_to mypage_customers_path
     end
